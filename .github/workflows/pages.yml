@@ -1,0 +1,55 @@
+name: Deploy site to GitHub Pages
+
+# 门禁分工(见 CLAUDE.md / bin):
+#  - check_publish.py --schema-only  →  硬门禁:任一条目 schema 非法则 CI 失败(真 bug)。
+#  - render_site.py                  →  只渲染已签字(publishable)条目;未签草稿不上线但不报错。
+# 首次启用:仓库 Settings → Pages → Source 选 "GitHub Actions"。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "entries/**"
+      - "schema/**"
+      - "bin/render_site.py"
+      - "bin/check_publish.py"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install deps
+        run: pip install pyyaml jsonschema
+      - name: Schema gate (hard) — every entry must be schema-valid
+        run: python3 bin/check_publish.py --schema-only
+      - name: Render site (signed/publishable entries only)
+        run: python3 bin/render_site.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

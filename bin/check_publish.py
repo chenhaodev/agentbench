@@ -42,8 +42,13 @@ def verdict_body(text):
     return re.sub(r"\s+", " ", body).strip()
 
 
-def check_entry(path, schema, yaml, Validator):
-    """Return list of problems ([] = publishable)."""
+def check_entry(path, schema, yaml, Validator, schema_only=False):
+    """Return list of problems ([] = publishable).
+
+    schema_only=True keeps only schema/parse problems (ignores signature, verdict
+    body, citation checks) — the hard CI gate. A draft that is schema-valid but
+    unsigned passes schema_only and is simply not rendered by render_site.py.
+    """
     problems = []
     text = open(path, encoding="utf-8").read()
     fm = re.match(r"^---\n(.*?)\n---", text, re.S)
@@ -57,6 +62,9 @@ def check_entry(path, schema, yaml, Validator):
     for err in sorted(Validator(schema).iter_errors(data), key=lambda x: list(x.path)):
         where = ".".join(str(p) for p in err.path) or "(root)"
         problems.append(f"schema: {where}: {err.message}")
+
+    if schema_only:
+        return problems
 
     ev = data.get("expert_verdict")
     if not isinstance(ev, dict):
@@ -77,6 +85,8 @@ def check_entry(path, schema, yaml, Validator):
 
 
 def main(argv):
+    schema_only = "--schema-only" in argv
+    argv = [a for a in argv if not a.startswith("--")]
     yaml, Validator = load_deps()
     schema = json.load(open(os.path.join(ROOT, "schema", "entry.schema.json")))
     targets = argv or sorted(glob.glob(os.path.join(ROOT, "entries", "*.md")))
@@ -85,18 +95,20 @@ def main(argv):
         print("no entries to check")
         return 0
 
+    bad_label = "INVALID" if schema_only else "BLOCKED"
+    ok_word = "schema-valid" if schema_only else "publishable"
     blocked = 0
     for path in targets:
         rel = os.path.relpath(path, ROOT)
-        problems = check_entry(path, schema, yaml, Validator)
+        problems = check_entry(path, schema, yaml, Validator, schema_only=schema_only)
         if problems:
             blocked += 1
-            print(f"BLOCKED  {rel}")
+            print(f"{bad_label}  {rel}")
             for p in problems:
                 print(f"    - {p}")
         else:
             print(f"OK       {rel}")
-    print(f"\n{len(targets) - blocked}/{len(targets)} publishable.")
+    print(f"\n{len(targets) - blocked}/{len(targets)} {ok_word}.")
     return 1 if blocked else 0
 
 

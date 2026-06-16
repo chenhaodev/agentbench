@@ -38,6 +38,11 @@ agent_summary:
   author: agent
   generated: "2026-06-16"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-16"
+  confidence: medium          # low / medium / high
+
 moa:
   capability_axes: [general-chat-quality, instruction-following, human-preference]
   modalities: [text, image]
@@ -68,5 +73,5 @@ LMArena(原 LMSYS Chatbot Arena;UC Berkeley SkyLab,Chiang et al.)是关注度最
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:偏好-Elo 在 MoA 选型里该占多少权重 vs 任务-准确率榜?"人类更喜欢"
-     在哪里与"它正确/安全"分道扬镳?每日变动的排名到底能否作为证据? -->
+人工署名(chenhao)。值得回答: 偏好-Elo 在 MoA 选型里该占多少权重 vs 任务-准确率榜? 我认为，情感居多的场景Elo高，其他场景准确率好些。 
+每日变动的排名不能作为证据? 我认为，每周/每月均值比较好。

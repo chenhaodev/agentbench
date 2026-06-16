@@ -40,6 +40,8 @@ jobs:
       - name: Render site (signed/publishable entries only)
         run: python3 bin/render_site.py
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true        # self-enable Pages (Actions source) — no manual repo setting needed
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

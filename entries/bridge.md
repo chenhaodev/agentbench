@@ -36,6 +36,12 @@ agent_summary:
   author: agent
   generated: "2026-06-16"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-16"
+  confidence: high          # low / medium / high
+  one_liner: "Harvard, MGH等权威机构，且榜单比较新"
+
 moa:
   capability_axes: [clinical-text-understanding, multilingual-clinical]
   modalities: [text]
@@ -60,5 +66,5 @@ chain-of-thought** 三种设置下报告模型成绩。配套的 HuggingFace Spa
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:"真实临床文本"的真实性,是否足以让人信任 BRIDGE 用于路由?
-     9 语种覆盖对非英语部署有什么价值? -->
+人工署名(chenhao)。"真实临床文本" 的真实性, 是否足以让人信任 BRIDGE 用于路由? 我认为是的。
+9 语种覆盖对非英语部署有什么价值? 在中国没有价值。

@@ -36,6 +36,11 @@ agent_summary:
   author: agent
   generated: "2026-06-16"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-16"
+  confidence: low          # low / medium / high
+
 moa:
   capability_axes: [medical-knowledge-QA]
   modalities: [text]
@@ -61,5 +66,5 @@ Space,在一套**医疗问答数据集**上给模型排名——MedQA(USMLE 式)
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:既然已饱和,这个榜还值得引用吗——作为下限、作为负向过滤,还是
-     干脆不用?开源覆盖在哪些方面仍提供闭源榜没有的信号? -->
+人工署名(chenhao)。值得回答: 
+既然已饱和,这个榜还值得引用吗——作为下限、作为负向过滤, 还是干脆不用? 我认为可以作为下限、若后续更新太慢则可不用。

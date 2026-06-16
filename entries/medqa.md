@@ -32,6 +32,12 @@ agent_summary:
   author: agent
   generated: "2026-06-16"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-16"
+  confidence: low          # low / medium / high
+  one_liner: "太旧、很多模型在此过拟合"
+
 moa:
   capability_axes: [medical-knowledge-QA, multilingual-medical]
   modalities: [text]
@@ -61,5 +67,5 @@ Medical-LLM Leaderboard 这类榜的共同配料(它的 500 道题还构成了 R
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:一个已饱和、很可能被记忆的数据集,还该不该锚定一个医疗 leaderboard?
-     MedQA 现在是不是最好当作负向过滤(不过它的模型直接淘汰)而非排名? -->
+人工署名(chenhao)。值得回答:一个已饱和、很可能被记忆的数据集,还该不该锚定一个医疗 leaderboard? 我认为不应该；但若在此榜单分数都太低，就要被直接排除。
+MedQA 现在是不是最好当作负向过滤 (不过它的模型直接淘汰) 而非排名? 我认为是的。

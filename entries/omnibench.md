@@ -37,6 +37,11 @@ agent_summary:
   author: agent
   generated: "2026-06-16"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-16"
+  confidence: low          # low / medium / high
+
 moa:
   capability_axes: [tri-modal-reasoning, audio-visual-understanding]
   modalities: [image, audio, text]
@@ -64,5 +69,6 @@ OmniBench(M-A-P / multimodal-art-projection,2024)评测**三模态**理解——
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:三模态整合是不是一个独立的 MoA 选型维度,还是被各单模态分数所涵盖?
-     n=1,142 是否足以给权重,还是只能作为方向性信号? -->
+人工署名(chenhao)。值得回答: 
+三模态整合是不是一个独立的 MoA 选型维度, 还是被各单模态分数所涵盖? 只有在世界模型、环境交互中需要被考虑。
+n=1,142 是否足以给权重,还是只能作为方向性信号? 只能作为启发式思考

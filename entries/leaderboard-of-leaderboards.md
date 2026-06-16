@@ -38,6 +38,12 @@ agent_summary:
   author: agent
   generated: "2026-06-16"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-16"
+  confidence: low          # low / medium / high
+  one_liner: "榜单的榜单，所以要深入一层挖掘一下"
+
 moa:
   capability_axes: [benchmark-discovery, leaderboard-comparison]
   modalities: [text]
@@ -68,5 +74,5 @@ leaderboard,而不亲自评测模型。**MAYA-AI 的"Leaderboard of Leaderboards
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:聚合器是否让 AgentBench 多余,还是恰恰证明需要一层判断?"按 likes
-     排序"在哪里会主动误导一个起草 MoA 的非领域工程师? -->
+人工署名(chenhao)。聚合器是否让 AgentBench 多余, 还是恰恰证明需要一层判断? 我认为，此榜单不够全面。
+"按likes排序" 在哪里会主动误导一个起草 MoA 的非领域工程师? 全面的榜单很难在专一领域最权威，故只是用来初筛罢了。

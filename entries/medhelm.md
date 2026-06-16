@@ -32,6 +32,12 @@ agent_summary:
   author: agent
   generated: "2026-06-16"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-16"
+  confidence: medium          # low / medium / high
+  one_liner: "子榜单很经典很全面。然而，模型不太全、更新不太频繁"
+
 moa:
   capability_axes: [clinical-decision-support, patient-communication, clinical-note-generation, medical-research-assistance, admin-workflow]
   modalities: [text]
@@ -58,5 +64,5 @@ Administration & Workflow——横跨 22 个子类、35 个 benchmark。它于 2
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:逐任务的整体评测是否让 MedHELM 成为医疗榜里最强的 MoA 选型输入?
-     "没有单一排名"对一个非领域工程师是帮助还是妨碍? -->
+人工署名(chenhao)。值得回答: 逐任务的整体评测是否让 MedHELM 成为医疗榜里最强的 MoA 选型输入? 我认为不是，因为它最新不太频、且模型类别不全。
+"没有单一排名" 对一个非领域工程师是帮助还是妨碍? 我认为很难讲。没有单一排名的话，某个场景我选任意模型应该都可以；当然，其他榜单可能会补充该信息的。

@@ -84,17 +84,24 @@ python3 bin/check_publish.py            # 发布门禁:未签字 = 拦截
 数据优先:**schema 就是契约**,渲染与工具都薄。
 
 ```
+SKILL.md                   技能清单(本 repo 即 Skill;触发后教 agent 走整套工作流)
 schema/entry.schema.json   一个榜单条目的契约(popularity / authority / models_ranked / expert_verdict / moa)
 entries/<id>.md            一个榜单 = frontmatter + 「## Agent summary」+「## Expert verdict」
 entries/_TEMPLATE.md       起草模板
-bin/check_publish.py       发布门禁(CI)
+bin/check_publish.py       发布门禁(--schema-only 为 CI 硬门禁)
+bin/render_site.py         静态站点渲染(只渲染已签字条目)
 hooks/guard_verdict.py     PreToolUse:禁止 AI 代写专家判语
 hooks/validate_entry.py    PostToolUse:写入即按 schema 校验(草稿放行)
-.claude/settings.json      挂载两个 hook
-CLAUDE.md                  决策、完整性规则、hook 与门禁说明
+.github/workflows/pages.yml CI:schema 门禁 → 渲染 → 部署 GitHub Pages
+docs/SOURCING.md           按"体裁×来源"普查的发现法
+CLAUDE.md                  决策、完整性规则、语言约定、hook 与门禁说明
 ```
 
 依赖:`pip install pyyaml jsonschema`(仅用于校验/门禁;无运行时框架)。
+
+## 作为 Skill 使用
+
+本 repo 即一个 [Claude Code Skill](SKILL.md)(开放 `SKILL.md` 格式)。安装:`ln -s "$PWD" ~/.claude/skills/agentbench`。触发后,它教 agent 走完整工作流:**发现(按体裁×来源普查)→ 起草(先核实再写,判语留空)→ 校验 → 交专家签字 → 渲染/部署**,并强制"AI 写事实、专家签判语"的边界。已上线示例:<https://chenhaodev.github.io/agentbench/>。
 
 ## 设计取舍
 

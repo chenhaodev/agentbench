@@ -32,7 +32,8 @@
 
 ## 6. 收尾
 - [ ] 待 `TASK.md` 意图被 CLAUDE.md 完全吸收后,**删除 `TASK.md`**(沿用 med-agent-verifier 约定)。
-- [ ] 把本仓库打包成可调用的 **Skill**(原始 brief 要求:SKILL.md + scripts/resources)。
+- [x] 把本仓库打包成 **Skill**(`SKILL.md`,开放格式;scripts=`bin/`,resources=`schema/`+`entries/_TEMPLATE.md`+`docs/`)。安装:`ln -s "$PWD" ~/.claude/skills/agentbench`。
+  - [ ] 可选:发布到 skill.sh / agentskill.sh;或做成 plugin(`.claude-plugin/`)。
 
 ## 已知限制(非待办,记录)
 - LinkedIn 帖子 **permalink 无法干净抓取**(URN 不在可读 DOM);只能记作者+反应数+论文线索。

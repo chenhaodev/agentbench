@@ -10,8 +10,9 @@
 
 ## 2. 渲染:静态站点
 - [x] **`bin/render_site.py`** —— 零额外依赖渲染器,**只渲染已签发(publishable)条目**(复用 check_publish);输出 `site/`(index + 每条详情 + style.css)。三轴信号(权威/人气/能力)视觉分离,专家判语置顶。本地预览:`python3 bin/render_site.py && python3 -m http.server -d site`。
-- [x] **GitHub Pages 部署 workflow**:`.github/workflows/pages.yml` —— push 时 `check_publish --schema-only`(硬门禁:schema 非法才失败)→ `render_site`(只发已签字)→ 部署 `site/`。新草稿不会弄垮构建,只是不上线。
-- [ ] **启用前置**(需在 GitHub 上操作):① 本仓库目前**无 remote**,先 `git remote add` 并 push;② 仓库 Settings → Pages → Source 选 "GitHub Actions";③ 首次 push 后 Action 自动部署。
+- [x] **GitHub Pages 部署 workflow**:`.github/workflows/pages.yml` —— push 时 `check_publish --schema-only`(硬门禁)→ `render_site`(只发已签字)→ 部署 `site/`(`configure-pages enablement:true` 自启用)。新草稿不会弄垮构建,只是不上线。
+- [x] **已上线**:<https://chenhaodev.github.io/agentbench/>(repo: chenhaodev/agentbench,public)。build ✓ + deploy ✓,14 条全部在线。
+- [ ] 可选:把 Actions 升到支持 Node 24 的版本(checkout/setup-python/configure-pages/upload-pages-artifact/deploy-pages 当前跑在 Node 20,仅弃用告警,不影响运行)。
 - [ ] 可选:首页加按 confidence / year 排序;详情页加"返回顶部"。
 
 ## 3. 广度:继续去医疗偏斜(当前 6/14 非医疗)

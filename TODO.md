@@ -8,9 +8,10 @@
 - [ ] 其余 11 条逐条签字:bridge、medbench、medhelm、open-medical-llm-leaderboard、medqa、mediqa-chat、rcq、leaderboard-of-leaderboards、omnibench、video-mme、voicebench。
 - 流程提醒:在自己的编辑器里改(不是工具调用,`guard_verdict.py` 不拦你);判语写在 `<!-- -->` 之外;`signed_date` 加引号;`confidence` ∈ {low,medium,high};改完 `python3 bin/check_publish.py entries/<id>.md` 应翻成 OK。
 
-## 2. 渲染:静态站点(已有 ≥1 条够格上线)
-- [ ] 选型并搭建 static-site generator(MkDocs Material / Astro),**只渲染已签发(publishable)条目**。
-- [ ] 在 CI 接 `bin/check_publish.py` 作为发布门禁(未签字 = 不上线)。
+## 2. 渲染:静态站点
+- [x] **`bin/render_site.py`** —— 零额外依赖渲染器,**只渲染已签发(publishable)条目**(复用 check_publish);输出 `site/`(index + 每条详情 + style.css)。三轴信号(权威/人气/能力)视觉分离,专家判语置顶。本地预览:`python3 bin/render_site.py && python3 -m http.server -d site`。
+- [ ] **GitHub Pages 部署**:加一个 GH Action,在 push 时跑 check_publish(门禁)→ render_site → 发布 `site/`(未签字 = 不上线)。
+- [ ] 可选:首页加按 confidence / year 排序;详情页加"返回顶部"。
 
 ## 3. 广度:继续去医疗偏斜(当前 6/14 非医疗)
 - [ ] 非医疗锚点(事实已备好):**EQ-Bench**(情商,原始 brief 点名)、**MTEB**(向量检索)、**Open LLM Leaderboard**(通用,v1→v2)。

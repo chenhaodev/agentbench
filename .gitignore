@@ -8,5 +8,9 @@ __pycache__/
 # Claude Code personal/local settings (keep settings.json — it carries the shared hooks)
 .claude/settings.local.json
 
+# Generated static site (build artifact — render with `python3 bin/render_site.py`)
+site/
+*-preview.png
+
 # Local editor / OS
 .DS_Store

@@ -1,0 +1,12 @@
+# Playwright MCP scratch (live-session snapshots; not part of the data layer)
+.playwright-mcp/
+
+# Python
+__pycache__/
+*.pyc
+
+# Claude Code personal/local settings (keep settings.json — it carries the shared hooks)
+.claude/settings.local.json
+
+# Local editor / OS
+.DS_Store

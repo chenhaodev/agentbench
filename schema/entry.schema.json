@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chenhao/agentbench/schema/entry.schema.json",
+  "title": "AgentBench subjective benchmark entry",
+  "description": "Frontmatter contract for one benchmark/leaderboard entry. The long-form prose (## Agent summary, ## Expert verdict) lives in the Markdown body; this schema validates the structured frontmatter only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "year", "authority", "methodology", "as_of", "freshness", "moa"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "kebab-case stable slug, also the filename (e.g. 'medbench', 'eqbench')."
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "aliases": { "type": "array", "items": { "type": "string" }, "default": [] },
+    "homepage": { "type": "string", "format": "uri" },
+    "year": {
+      "type": "integer",
+      "minimum": 2018,
+      "maximum": 2100,
+      "description": "Year the benchmark/leaderboard was published or established."
+    },
+    "domain": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Subject areas, e.g. ['medical','clinical-QA'] or ['emotional-intelligence']."
+    },
+    "genre": {
+      "type": "string",
+      "enum": ["online-leaderboard", "shared-task", "paper-bound", "aggregator", "dataset"],
+      "description": "Benchmark TYPE — added after a coverage miss (see docs/SOURCING.md). Tagging genre makes whole-category gaps visible: 'online-leaderboard' (live submissions, e.g. MedBench), 'shared-task' (one-off challenge, e.g. MEDIQA-Chat), 'paper-bound' (introduced in a paper, e.g. RCQ), 'aggregator' (leaderboard-of-leaderboards), 'dataset' (eval set, no ranking)."
+    },
+
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maintainers"],
+      "description": "Why this leaderboard should be trusted (the brief's '18 authoritative institutions' signal).",
+      "properties": {
+        "maintainers": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "institution_count": { "type": "integer", "minimum": 0 },
+        "update_cadence": {
+          "type": "string",
+          "enum": ["live", "monthly", "quarterly", "yearly", "irregular", "frozen", "unknown"]
+        },
+        "citation_count": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "as_of"],
+          "properties": {
+            "value": { "type": "integer", "minimum": 0 },
+            "source": { "type": "string", "description": "e.g. 'Google Scholar', 'Semantic Scholar'." },
+            "as_of": { "type": "string", "format": "date" }
+          }
+        },
+        "online": { "type": "boolean", "description": "Is there a live, multi-model online leaderboard?" }
+      }
+    },
+
+    "popularity": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Adoption/attention signals (HuggingFace likes/downloads, trending). POPULARITY IS NOT QUALITY — kept separate from 'authority' (academic) and 'models_ranked' (capability) on purpose, so a reader never mistakes likes for trustworthiness.",
+      "properties": {
+        "hf_space": { "type": "string", "format": "uri", "description": "HuggingFace Space hosting the leaderboard, if any." },
+        "hf_likes": { "type": "integer", "minimum": 0 },
+        "hf_downloads": { "type": "integer", "minimum": 0, "description": "For dataset/model-backed boards, if applicable." },
+        "trending": { "type": "boolean", "description": "Currently surfaced by HF trending at as_of." },
+        "as_of": { "type": "string", "format": "date" },
+        "social": {
+          "type": "array",
+          "description": "Social-media salience (X/Reddit/HN). SENTIMENT, NOT AUTHORITY — links rot and are not peer-reviewed; never let these drive the expert_verdict. Permalinks captured from a logged-in browse session.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["platform", "url", "as_of"],
+            "properties": {
+              "platform": { "type": "string", "enum": ["x", "reddit", "hn", "youtube", "other"] },
+              "handle": { "type": "string" },
+              "url": { "type": "string", "format": "uri" },
+              "note": { "type": "string", "description": "What this link evidences — that people are talking, not that the benchmark is good." },
+              "as_of": { "type": "string", "format": "date" }
+            }
+          }
+        }
+      }
+    },
+
+    "methodology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evaluation"],
+      "properties": {
+        "evaluation": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "enum": ["automated", "human", "blind", "double-blind", "llm-judge", "elo", "pairwise"] }
+        },
+        "contamination_controls": { "type": "string", "description": "How it resists train-set leakage, if any." },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "models_ranked": {
+      "type": "array",
+      "description": "Selected notable placements — not the full board.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["model", "axis"],
+        "properties": {
+          "model": { "type": "string" },
+          "rank": { "type": "integer", "minimum": 1 },
+          "axis": { "type": "string", "description": "Capability axis this rank is on, e.g. 'reasoning', 'EQ'." },
+          "license": { "type": "string", "enum": ["open-weights", "open-source", "closed", "unknown"] },
+          "note": { "type": "string" }
+        }
+      },
+      "default": []
+    },
+
+    "citations": {
+      "type": "array",
+      "description": "Resolvable references. No bare/hallucinated DOIs — verify before adding.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "url", "accessed"],
+        "properties": {
+          "title": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "doi": { "type": "string" },
+          "accessed": { "type": "string", "format": "date" }
+        }
+      },
+      "default": []
+    },
+
+    "as_of": {
+      "type": "string",
+      "format": "date",
+      "description": "Snapshot date of this entry's factual claims."
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "last_checked"],
+      "properties": {
+        "status": { "type": "string", "enum": ["fresh", "aging", "stale"] },
+        "last_checked": { "type": "string", "format": "date" },
+        "note": { "type": "string" }
+      }
+    },
+
+    "agent_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Agent-authored factual digest. NEVER presented as the expert opinion. Prose lives under '## Agent summary' in the body.",
+      "required": ["author"],
+      "properties": {
+        "author": { "type": "string", "const": "agent", "description": "Always 'agent'." },
+        "generated": { "type": "string", "format": "date" }
+      }
+    },
+
+    "expert_verdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Human-signed subjective evaluation. Prose lives under '## Expert verdict' in the body. Do not write/sign on the user's behalf without explicit sign-off.",
+      "required": ["signed_by", "signed_date", "confidence"],
+      "properties": {
+        "signed_by": { "type": "string", "description": "Human signer, e.g. 'chenhao'." },
+        "signed_date": { "type": "string", "format": "date" },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+        "one_liner": { "type": "string", "description": "Tweet-length verdict for index/listing views." }
+      }
+    },
+
+    "moa": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Mixture-of-Agents selection inputs — what a non-domain AI engineer reads to draft an MoA.",
+      "required": ["capability_axes", "access"],
+      "properties": {
+        "capability_axes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "description": "Axes this benchmark credibly measures, e.g. ['clinical-reasoning','safety']."
+        },
+        "modalities": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["text", "image", "audio", "video", "tabular", "tool-use"] },
+          "default": ["text"]
+        },
+        "access": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "enum": ["api", "open-weights", "local", "closed"] },
+          "description": "Deployment options of the models this board favors."
+        },
+        "recommended_for": { "type": "array", "items": { "type": "string" } },
+        "caveats": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "tags": { "type": "array", "items": { "type": "string" }, "default": [] }
+  }
+}

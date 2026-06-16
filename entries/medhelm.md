@@ -1,0 +1,62 @@
+---
+id: medhelm
+name: MedHELM
+aliases: [Holistic Evaluation of Language Models for Medical Tasks]
+homepage: https://medhelm.org/
+year: 2025
+domain: [medical, clinical-tasks]
+genre: online-leaderboard
+
+authority:
+  maintainers: [Stanford CRFM / BMIR, Stanford Health Care, Microsoft Health & Life Sciences, community-led (2026)]
+  institution_count: 0          # multi-institutional; clinicians from 15 medical specialties (not a fixed count)
+  update_cadence: irregular
+  online: true                  # HELM-style public leaderboard
+
+methodology:
+  evaluation: [automated, human]
+  contamination_controls: "由真实临床工作流构建、经临床医生验证的任务分类,而非复用考试题。"
+  notes: "121 个临床任务,组织成经临床医生验证的任务分类:5 大类(Clinical Decision Support、Patient Communication、Clinical Note Generation、Medical Research Assistance、Administration & Workflow)、22 个子类、35 个 benchmark。同行评议、多机构;来自 15 个专科的临床医生。2026 年转为独立的社区主导项目。"
+
+citations:
+  - { title: "MedHELM — Holistic Evaluation of Language Models for Medical Tasks", url: "https://medhelm.org/", accessed: "2026-06-16" }
+  - { title: "MedHELM (CRFM HELM documentation)", url: "https://crfm-helm.readthedocs.io/en/latest/medhelm/", accessed: "2026-06-16" }
+
+as_of: "2026-06-16"
+freshness:
+  status: fresh
+  last_checked: "2026-06-16"
+  note: "2025 年初公布;2026 年起社区主导。"
+
+agent_summary:
+  author: agent
+  generated: "2026-06-16"
+
+moa:
+  capability_axes: [clinical-decision-support, patient-communication, clinical-note-generation, medical-research-assistance, admin-workflow]
+  modalities: [text]
+  access: [api, open-weights]
+  recommended_for:
+    - "为某个 SPECIFIC 临床工作流挑模型,而不是看单一的'医疗 IQ'数字"
+    - "跨 5 大任务族做整体对比,带逐类拆解"
+  caveats:
+    - "设计上就是整体/多指标——没有单一头条排名;要逐类读"
+    - "治理 2026 年从 Stanford+Microsoft 转为社区主导"
+---
+
+## Agent summary
+
+MedHELM 是 Stanford 把 **HELM**(Holistic Evaluation of Language Models)扩展到医疗的版本。它跨
+**121 个临床任务**评测模型,组织在一个**经临床医生验证的任务分类**里:5 大类——Clinical Decision
+Support、Patient Communication、Clinical Note Generation、Medical Research Assistance、
+Administration & Workflow——横跨 22 个子类、35 个 benchmark。它于 2025 年初由 Stanford 生物医学
+信息研究中心(BMIR)、Stanford Health Care 与 Microsoft Health & Life Sciences 合作公布,含来自
+**15 个医学专科**的临床医生;2026 年转为独立的社区主导项目。它的标志性选择是*整体、多指标*评测:
+不给一个 leaderboard 数字,而是逐类、逐任务报告,让读者按工作流挑模型。
+
+<!-- 仅事实;来源为 medhelm.org 与 CRFM HELM 文档。 -->
+
+## Expert verdict
+
+<!-- 人工署名(chenhao)。值得回答:逐任务的整体评测是否让 MedHELM 成为医疗榜里最强的 MoA 选型输入?
+     "没有单一排名"对一个非领域工程师是帮助还是妨碍? -->

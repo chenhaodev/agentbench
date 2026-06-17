@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Current state: schema-first, no app code yet
 
-This repo currently contains `TASK.md` (the brief, Chinese), this file, and the **data layer** (`schema/`, `entries/`). There is **no build system, no custom CLI, no tests, no `README.md` yet**. Do not assume commands exist. The deliverable is being built **data-first**: the entry schema is the contract; rendering and any tooling come later and stay thin.
+This repo contains this file (which ingested the original `TASK.md` brief verbatim — see "What we're building" below — then `TASK.md` was removed per the med-agent-verifier convention) and the **data layer** (`schema/`, `entries/`). There is **no build system, no custom CLI, no tests, no `README.md` yet**. Do not assume commands exist. The deliverable is being built **data-first**: the entry schema is the contract; rendering and any tooling come later and stay thin.
 
 When you add a static-site renderer or CI, update this file with the real commands at that point.
 

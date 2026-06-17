@@ -43,25 +43,25 @@
 
 ## 进度快照(2026-06-17,本节为最新口径,前面 §1/§3 的旧计数已被超越)
 
-**已完成**:22 条入库 · **15 条已签发并上线** · 静态站点 + GitHub Pages 自动部署(<https://chenhaodev.github.io/agentbench/>)· 打包并安装为 Skill · `check_publish --schema-only` CI 硬门禁 · 去医疗偏斜 **14/22**。
+**已完成**:23 条入库 · **15 条已签发并上线** · 静态站点 + GitHub Pages 自动部署(<https://chenhaodev.github.io/agentbench/>)· 打包并安装为 Skill · `check_publish --schema-only` CI 硬门禁 · 去医疗偏斜 **15/23**(新增 SWE-bench)· `check_publish.py` 已加非阻断 stale `as_of` 告警(>365 天)· [docs/VERDICT_RUBRIC.md](docs/VERDICT_RUBRIC.md) 判语 rubric 已落地 · `TASK.md` 已删(意图入 CLAUDE.md)。
 
-### A. 最高优先 —— 签字 7 条草稿(已入库,未上线)
-专家(chenhao)逐条签:**mteb · open-llm-leaderboard · gpqa · mathvista · docvqa · ocrbench · bfcl**。
+### A. 最高优先 —— 签字 8 条草稿(已入库,未上线)
+专家(chenhao)逐条签:**mteb · open-llm-leaderboard · gpqa · mathvista · docvqa · ocrbench · bfcl · swe-bench**。
 - 每条已写好 `## Expert verdict` 留白 + 2–3 个针对性问题;在 `<!-- -->` 外作答。
 - 加 `expert_verdict` 块(`signed_by`/`signed_date` 带引号/`confidence`∈{low,medium,high}/可选 `one_liner`)。
 - 签好 `python3 bin/check_publish.py entries/<id>.md` 翻 OK → commit + push → CI 自动上线。
 
 ### B. 广度(可选,继续去偏斜)
-- [ ] 缺的轴:**SWE-bench**(代码/agentic)未收;可补。
+- [x] 缺的轴:**SWE-bench**(代码/agentic)—— 已起草(`entries/swe-bench.md`,待签)。
 - [ ] 刻意略过的近重复:AIME25(数学数据集,与现有重叠)、Arena-Hard(与 LMArena 重叠)——如需仍可加。
 - [ ] **MEDIQA 系列 2023 之后**年份未调研(§4 仍有效)。
 
 ### C. 工具/体验(可选,均 §2/§5 carry-over)
-- [ ] `check_publish.py` 加 **stale `as_of` 告警**(呼应专家反复用的"是否还更新/是否饱和"信任准则)。
+- [x] `check_publish.py` 加 **stale `as_of` 告警**(>365 天,非阻断 WARN;呼应"是否还更新/是否饱和"信任准则)。
+- [x] 把判语里反复出现的信任标尺(有名 + 高更新 + 模型覆盖全 + judge↔专家一致 + 未饱和)写成 **判语 rubric** → [docs/VERDICT_RUBRIC.md](docs/VERDICT_RUBRIC.md)。
 - [ ] **cross-report 引用频次** 结构化为 `popularity` 子信号。
 - [ ] Actions 升 Node 24;首页排序 / 详情页"返回顶部"。
-- [ ] 可选:把专家判语里反复出现的信任标尺(有名 + 高更新 + 模型覆盖全 + judge↔专家一致 + 未饱和)写成一份 **判语 rubric** 放 `docs/`,给未来签字统一参照。
 
 ### D. 收尾(§6 carry-over)
-- [ ] `TASK.md` 意图已基本进 CLAUDE.md → 可考虑删除 `TASK.md`。
+- [x] `TASK.md` 意图已进 CLAUDE.md → **已删除 `TASK.md`**。
 - [ ] 可选:发布 Skill 到 skill.sh / agentskill.sh,或做成 plugin。

@@ -1,0 +1,85 @@
+---
+id: swe-bench
+name: SWE-bench
+aliases: [SWE-bench Verified, SWE-bench Lite, SWE-bench Multimodal, SWE-bench Multilingual]
+homepage: https://www.swebench.com/
+year: 2024
+domain: [general, code, software-engineering, agentic]
+genre: online-leaderboard
+
+authority:
+  maintainers: [Carlos Jimenez & John Yang et al. (Princeton NLP / Stanford); SWE-bench Verified 子集由 OpenAI 与原作者合作发布]
+  institution_count: 0
+  update_cadence: live           # 官方榜持续接收 agent/模型提交
+  citation_count:
+    value: 2000
+    source: Google Scholar (约数,持续增长)
+    as_of: "2026-06-17"
+  online: true
+
+popularity:
+  trending: true
+  as_of: "2026-06-17"
+
+methodology:
+  evaluation: [automated]
+  contamination_controls: "原始 500/2294 任务的 GitHub issue 与 gold patch 早于发布即可能进入训练集;OpenAI 自身审计发现前沿模型能逐字复现部分 gold patch。社区以 SWE-bench Live(滚动新 issue)等变体对抗污染。"
+  notes: "任务=给定真实 GitHub issue + 仓库快照,模型/agent 生成补丁(patch),用仓库自带测试套件判定是否真正修复(% resolved)。这是可执行、端到端的评测,不是 MCQ。原始集 2294 题、12 个 Python 仓库;Verified=人工校验过的 500 题干净子集;另有 Lite(300)、Multimodal、Multilingual 等变体。ICLR 2024 oral。"
+
+models_ranked:
+  - { model: 前沿模型(多家并列), rank: 1, axis: software-engineering, license: closed, note: "2026 年中 Verified 上 Claude Opus 4.x / Gemini 3.x Pro 等多家在 ~80% 统计并列——榜在前沿已趋饱和、区分度下降" }
+
+citations:
+  - { title: "SWE-bench: Can Language Models Resolve Real-World GitHub Issues? (Jimenez et al., ICLR 2024 oral)", url: "https://arxiv.org/abs/2310.06770", accessed: "2026-06-17" }
+  - { title: "SWE-bench 官方榜与文档(原始 / Verified / Lite / Multimodal / Multilingual)", url: "https://www.swebench.com/", accessed: "2026-06-17" }
+  - { title: "SWE-bench — 代码与数据(SWE-bench/SWE-bench, GitHub)", url: "https://github.com/swe-bench/SWE-bench", accessed: "2026-06-17" }
+  - { title: "Introducing SWE-bench Verified(OpenAI 与原作者合作的 500 题人工校验子集)", url: "https://openai.com/index/introducing-swe-bench-verified/", accessed: "2026-06-17" }
+
+as_of: "2026-06-17"
+freshness:
+  status: fresh
+  last_checked: "2026-06-17"
+  note: "live,持续收提交;但前沿分已聚到 ~80% 并列,作为'谁更强'的区分器在饱和,价值更多在'能不能真修代码'这条门槛。"
+
+agent_summary:
+  author: agent
+  generated: "2026-06-17"
+
+moa:
+  capability_axes: [software-engineering, code-generation, agentic, tool-use, repo-level-reasoning]
+  modalities: [text]
+  access: [api, open-weights]
+  recommended_for:
+    - "为'修真实代码库 / 编码 agent'选模型——这是该能力事实上的标准榜,且端到端可执行(测试通过才算修好)"
+    - "用 Verified 子集而非原始集做横比(原始集含噪声/不可解任务)"
+    - "需要抗污染的当下能力快照时,优先看 SWE-bench Live 等滚动变体"
+  caveats:
+    - "数据污染明确存在:gold patch 早于发布即可能进训练集,高分可能含记忆成分"
+    - "前沿已 ~80% 并列饱和,Verified 分很难再区分顶尖模型;真实工程能力差距未必反映在这一个数上"
+    - "纯 Python、issue→patch 这一种工作流;不代表多语言、架构设计、调试等更广的工程能力"
+
+tags: [code, agentic, swe, executable-eval]
+---
+
+## Agent summary
+
+SWE-bench(Jimenez、Yang 等,Princeton NLP,ICLR 2024 oral)是评测模型/agent **修真实代码**能力事实上的标准榜。
+任务很硬核:给定一个**真实 GitHub issue** 与对应仓库快照,模型要生成一个**补丁(patch)**,然后用该仓库**自带的测试套件**
+判定是否真正修复——通过测试才算 **resolved**。这是端到端、可执行的评测,不是选择题。原始集有 **2294 题、12 个 Python 仓库**。
+
+后来出现关键子集与变体:**Verified**(OpenAI 与原作者合作,人工校验出的 **500 题**干净子集,剔除了表述不清/不可解/测试 flaky 的任务,
+现已成为发布会标配口径)、**Lite**(300 题轻量集)、以及 **Multimodal / Multilingual** 等。与之配套的 agent 脚手架是同组的 SWE-agent。
+
+要点(对选型很关键):**数据污染是公开问题**——issue 与 gold patch 在发布前即可能进入训练集,OpenAI 自身审计发现前沿模型能逐字
+复现部分 gold patch,所以高分里可能含记忆成分;社区用 **SWE-bench Live**(滚动加入新 issue)等变体对抗。**且榜在前沿已趋饱和**:
+2026 年中,多家前沿模型(Claude Opus 4.x、Gemini 3.x Pro 等)在 Verified 上 **~80% 统计并列**,作为"谁更强"的区分器价值在下降,
+但作为"能不能真修代码"的**能力门槛**仍然有用。
+
+<!-- 仅事实;来源:ICLR 论文 (arXiv 2310.06770)、官方站 swebench.com、GitHub 仓库、OpenAI 的 Verified 说明。具体并列分数为多家聚合榜口径,标 as_of 2026-06-17。 -->
+
+## Expert verdict
+
+<!-- 人工署名(chenhao)。值得回答:
+     1) Verified 已 ~80% 多家并列饱和,你会把它当"区分器"还是仅当"及格门槛"?在 MoA 里据此选编码冠军模型还需补什么私域信号?
+     2) 已知 gold patch 污染,你给原始/Verified 分打多少折扣?是否要求改看 SWE-bench Live 这类滚动榜才算数?
+     3) 它只测 Python issue→patch 一种工作流;对你关心的工程能力(多语言、调试、架构),这个分的外推性有多强? -->

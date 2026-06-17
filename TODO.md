@@ -41,7 +41,7 @@
 
 ## 进度快照(2026-06-17,本节为最新口径,前面各节旧计数已被超越)
 
-**已完成**:**29 条入库 · 15 条已签发并上线 · 14 条待签** · 静态站点 + GitHub Pages 自动部署(<https://chenhaodev.github.io/agentbench/>)· 打包并安装为 Skill · `check_publish --schema-only` CI 硬门禁 · 去医疗偏斜 **19/29**(`make coverage` 机检口径:10 医疗;旧手记 22/29 已更正)· `check_publish.py` 非阻断 stale `as_of` 告警(>365 天)· [docs/VERDICT_RUBRIC.md](docs/VERDICT_RUBRIC.md) 判语 rubric · Actions 已升 Node 24 主版本 · 首页排序(信心/年份)+ 详情页"返回顶部" · `TASK.md` 已删(意图入 CLAUDE.md)。
+**已完成**:**29 条入库 · 15 条已签发并上线 · 14 条待签** · 静态站点 + GitHub Pages 自动部署(<https://chenhaodev.github.io/agentbench/>,最近一次 build+deploy 绿、站点 HTTP 200)· 打包并安装为 Skill · `check_publish --schema-only` CI 硬门禁 · **`bin/coverage_report.py` 覆盖体检 + `Makefile`(`make help`)任务入口;CI 加非阻断 census 步骤** · 去医疗偏斜 **19/29**(`make coverage` 机检口径:10 医疗;旧手记 22/29 已更正)· `check_publish.py` 非阻断 stale `as_of` 告警(>365 天)· [docs/VERDICT_RUBRIC.md](docs/VERDICT_RUBRIC.md) 判语 rubric · Actions 已升 Node 24 主版本 · 首页排序(信心/年份)+ 详情页"返回顶部" · `TASK.md` 已删(意图入 CLAUDE.md)。
 
 ### A. 最高优先 —— 签字 14 条草稿(已入库,schema-valid,未上线)
 专家(chenhao)逐条签:**mteb · open-llm-leaderboard · gpqa · mathvista · docvqa · ocrbench · bfcl · swe-bench · mediqa-series · aime-2025 · arena-hard · mle-bench · re-bench · signalmc-med**。

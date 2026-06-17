@@ -56,7 +56,8 @@
 - [x] **bio-signal**(census 锚点):`signalmc-med`(ECG+PPG 生物信号 FM 评测,2026 新预印本)。
 - [x] 刻意略过的近重复:`aime-2025`(数学,与现有重叠)、`arena-hard`(与 LMArena 重叠)—— 应需求已补,重叠已标注。
 - [x] **MEDIQA 2023+ 系列**:`mediqa-series`(CORR/M3G/MAGIC/WV/OE,2024–2025)。
-- [ ] 仍可补:**SWE-bench Pro**、graph/GNN(OGB)、cybersecurity(CyberSecEval)、bio-signal 的 EEG-FM-Bench / 多模态 LLM 读 ECG(PULSE)等——按需。
+- [x] **cybersecurity**(此前完全空白):`cyberseceval`(Meta Purple Llama,v1→v4;secure-coding + dual-use offensive;无 online 名次榜=`genre: dataset`)——**待签**。
+- [ ] 仍可补:**SWE-bench Pro**、graph/GNN(OGB)、bio-signal 的 EEG-FM-Bench / 多模态 LLM 读 ECG(PULSE)等——按需。
 
 ### C. 工具/体验
 - [x] `check_publish.py` 非阻断 stale `as_of` 告警(>365 天)。

@@ -13,6 +13,7 @@ on:
       - "schema/**"
       - "bin/render_site.py"
       - "bin/check_publish.py"
+      - "bin/coverage_report.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -37,6 +38,8 @@ jobs:
         run: pip install pyyaml jsonschema
       - name: Schema gate (hard) — every entry must be schema-valid
         run: python3 bin/check_publish.py --schema-only
+      - name: Coverage census (informational — never blocks)
+        run: python3 bin/coverage_report.py || true
       - name: Render site (signed/publishable entries only)
         run: python3 bin/render_site.py
       - uses: actions/configure-pages@v6

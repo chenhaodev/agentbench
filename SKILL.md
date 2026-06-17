@@ -53,6 +53,8 @@ Then `python3 bin/check_publish.py entries/<id>.md` should flip to `OK`.
 ## Scripts & resources (in this repo)
 - `schema/entry.schema.json` — the entry contract. `entries/_TEMPLATE.md` — copy to start.
 - `bin/check_publish.py` — publish gate (`--schema-only` for the CI/hard gate). `bin/render_site.py` — static site.
+- `bin/coverage_report.py` — coverage/de-bias census (genre distribution, medical-skew, year spread; `--strict` to gate). `make coverage`.
+- `Makefile` — discoverable task entry (`make help`): `check` / `check-schema` / `coverage` / `render` / `serve`.
 - `hooks/guard_verdict.py` (protect the verdict) + `hooks/validate_entry.py` (schema on write), wired in `.claude/settings.json`.
 - `docs/SOURCING.md` — discovery method & coverage map. `CLAUDE.md` — full conventions, integrity rules, decisions.
 

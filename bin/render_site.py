@@ -80,7 +80,7 @@ def page(title, body, depth_to_root="."):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <link rel="stylesheet" href="{depth_to_root}/style.css"></head>
-<body><main>{body}</main>
+<body><a id="top"></a><main>{body}</main>
 <footer>AgentBench · 主观榜单评议 — 客观聚合器回答"谁在榜上",这里回答"该不该信这个榜"。</footer>
 </body></html>"""
 
@@ -166,6 +166,7 @@ def render_entry(e, body_md):
   <h4>适合 recommended for</h4>{lst(moa.get("recommended_for",[]))}
   <h4>注意 caveats</h4>{lst(moa.get("caveats",[]))}
 </section>
+<p class="backtop"><a href="#top">↑ 返回顶部</a> · <a href="./index.html">← 返回总览</a></p>
 """
     return page(fm.get("name", "entry") + " · AgentBench", body)
 
@@ -177,8 +178,10 @@ def render_index(entries):
         dom = "medical" if "medical" in (fm.get("domain") or []) else "non-medical"
         one = (ev.get("one_liner") or "").strip()
         rows.append(
-            f'<tr data-domain="{dom}" data-genre="{html.escape(fm.get("genre",""))}" data-conf="{html.escape((ev.get("confidence") or ""))}">'
-            f'<td><a href="./{html.escape(fm["id"])}.html">{html.escape(fm.get("name",""))}</a></td>'
+            f'<tr data-domain="{dom}" data-genre="{html.escape(fm.get("genre",""))}"'
+            f' data-conf="{html.escape((ev.get("confidence") or ""))}" data-year="{html.escape(str(fm.get("year","") or ""))}"'
+            f' data-name="{html.escape((fm.get("name","") or "").lower())}">'
+            f'<td><a href="./{html.escape(fm["id"])}.html">{html.escape(fm.get("name",""))}</a> <span class="muted">{html.escape(str(fm.get("year","") or ""))}</span></td>'
             f'<td>{chips([fm.get("genre","")],"chip genre")}</td>'
             f'<td>{dom}</td>'
             f'<td>{chips((fm.get("moa") or {}).get("modalities",[]),"chip mod")}</td>'
@@ -196,6 +199,11 @@ MoA 里选模型。客观聚合器回答<em>"谁在榜上"</em>,这里回答<em>
   <label>体裁 <select id="f-genre"><option value="">全部</option>
     <option>online-leaderboard</option><option>shared-task</option><option>paper-bound</option>
     <option>aggregator</option><option>dataset</option></select></label>
+  <label>排序 <select id="f-sort">
+    <option value="default">默认(名称)</option>
+    <option value="conf">专家信心 高→低</option>
+    <option value="year">年份 新→旧</option>
+  </select></label>
   <input id="f-text" placeholder="搜索名称…">
 </div>
 
@@ -204,18 +212,26 @@ MoA 里选模型。客观聚合器回答<em>"谁在榜上"</em>,这里回答<em>
 
 <script>
 const g=document.getElementById('grid'),fd=document.getElementById('f-domain'),
-fg=document.getElementById('f-genre'),ft=document.getElementById('f-text');
+fg=document.getElementById('f-genre'),fs=document.getElementById('f-sort'),ft=document.getElementById('f-text');
+const CONF={{high:3,medium:2,low:1,'':0}};
 function flt(){{const d=fd.value,ge=fg.value,t=ft.value.toLowerCase();
 for(const r of g.tBodies[0].rows){{
- const ok=(!d||r.dataset.domain===d)&&(!ge||r.dataset.genre===ge)&&(!t||r.cells[0].textContent.toLowerCase().includes(t));
+ const ok=(!d||r.dataset.domain===d)&&(!ge||r.dataset.genre===ge)&&(!t||r.dataset.name.includes(t));
  r.style.display=ok?'':'none';}}}}
-[fd,fg].forEach(e=>e.onchange=flt);ft.oninput=flt;
+function srt(){{const tb=g.tBodies[0],rs=[...tb.rows],m=fs.value;
+ rs.sort((a,b)=>{{
+  if(m==='conf') return (CONF[b.dataset.conf]||0)-(CONF[a.dataset.conf]||0)||a.dataset.name.localeCompare(b.dataset.name);
+  if(m==='year') return (+b.dataset.year||0)-(+a.dataset.year||0)||a.dataset.name.localeCompare(b.dataset.name);
+  return a.dataset.name.localeCompare(b.dataset.name);}});
+ rs.forEach(r=>tb.appendChild(r));}}
+[fd,fg].forEach(e=>e.onchange=flt);ft.oninput=flt;fs.onchange=srt;
 </script>
 """
     return page("AgentBench · 主观榜单评议", body)
 
 
 CSS = """
+html{scroll-behavior:smooth}
 :root{--ink:#1a1a1a;--muted:#666;--line:#e3e3e3;--accent:#2b6cb0;
 --auth:#2f855a;--pop:#b7791f;--cap:#2b6cb0;--bg:#fbfbfa}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
@@ -249,6 +265,7 @@ border-radius:8px;padding:14px 18px;margin:18px 0}
 .moa{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 18px;margin:16px 0}
 .filters{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:14px 0}
 .filters select,.filters input{padding:5px 8px;font-size:.9rem}
+.backtop{margin:22px 0 0;font-size:.9rem;border-top:1px solid var(--line);padding-top:12px}
 @media(max-width:680px){.signals{grid-template-columns:1fr}}
 """
 

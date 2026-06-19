@@ -39,16 +39,18 @@
 
 ---
 
-## 进度快照(2026-06-17,本节为最新口径,前面各节旧计数已被超越)
+## 进度快照(2026-06-19,本节为最新口径,前面各节旧计数已被超越)
 
-**已完成**:**29 条入库 · 15 条已签发并上线 · 14 条待签** · 静态站点 + GitHub Pages 自动部署(<https://chenhaodev.github.io/agentbench/>,最近一次 build+deploy 绿、站点 HTTP 200)· 打包并安装为 Skill · `check_publish --schema-only` CI 硬门禁 · **`bin/coverage_report.py` 覆盖体检 + `Makefile`(`make help`)任务入口;CI 加非阻断 census 步骤** · 去医疗偏斜 **19/29**(`make coverage` 机检口径:10 医疗;旧手记 22/29 已更正)· `check_publish.py` 非阻断 stale `as_of` 告警(>365 天)· [docs/VERDICT_RUBRIC.md](docs/VERDICT_RUBRIC.md) 判语 rubric · Actions 已升 Node 24 主版本 · 首页排序(信心/年份)+ 详情页"返回顶部" · `TASK.md` 已删(意图入 CLAUDE.md)。
+**已完成**:**33 条入库 · 16 条已签发 · 17 条待签**(`make coverage` 机检口径)· 静态站点 + GitHub Pages 自动部署(<https://chenhaodev.github.io/agentbench/>,最近一次 build+deploy 绿、站点 HTTP 200)· 打包并安装为 Skill · `check_publish --schema-only` CI 硬门禁 · **`bin/coverage_report.py` 覆盖体检 + `Makefile`(`make help`)任务入口;CI 加非阻断 census 步骤** · 去医疗偏斜 **22/33(医疗占比 33%,达 ≤50% 目标)** · `check_publish.py` 非阻断 stale `as_of` 告警(>365 天)· [docs/VERDICT_RUBRIC.md](docs/VERDICT_RUBRIC.md) 判语 rubric · Actions 已升 Node 24 主版本 · 首页排序(信心/年份)+ 详情页"返回顶部" · `TASK.md` 已删(意图入 CLAUDE.md)。
 
-### A. 最高优先 —— 签字 14 条草稿(已入库,schema-valid,未上线)
-专家(chenhao)逐条签:**mteb · open-llm-leaderboard · gpqa · mathvista · docvqa · ocrbench · bfcl · swe-bench · mediqa-series · aime-2025 · arena-hard · mle-bench · re-bench · signalmc-med**。
+> 注:`mle-bench` 已由 chenhao 签字(2026-06-17,confidence low),但与 `cyberseceval` 的事实增补一同**留在工作区未提交**(按用户指示 hold)——一旦提交并 push,线上签发数 +1。
+
+### A. 最高优先 —— 签字 17 条草稿(已入库,schema-valid,未上线)
+专家(chenhao)逐条签:**mteb · open-llm-leaderboard · gpqa · mathvista · docvqa · ocrbench · bfcl · swe-bench · mediqa-series · aime-2025 · arena-hard · re-bench · signalmc-med · cyberseceval · swe-bench-pro · ogb · pulse-ecg**。
 - 每条已写好 `## Expert verdict` 留白 + 2–3 个针对性问题;在 `<!-- -->` 外作答。
 - 加 `expert_verdict` 块(`signed_by`/`signed_date` 带引号/`confidence`∈{low,medium,high}/可选 `one_liner`)。
 - 签好 `python3 bin/check_publish.py entries/<id>.md` 翻 OK → commit + push → CI 自动上线。
-- 提醒:`aime-2025`/`arena-hard` 是刻意补的近重复(增量有限),`signalmc-med` 是很新的预印本且测编码器非 LLM——这几条判 `low` 或暂不签都合理。
+- 提醒:`aime-2025`/`arena-hard`/`swe-bench-pro` 是刻意补的近重复(增量在难度/抗污染,非新能力轴);`signalmc-med`/`ogb` 测的是编码器/GNN 非 LLM、`pulse-ecg` 有作者自评循环——这几条判 `low` 或暂不签都合理。
 
 ### B. 广度(已补的新轴)
 - [x] **代码/agentic**:`swe-bench`(issue→patch,可执行评测)。
@@ -57,7 +59,10 @@
 - [x] 刻意略过的近重复:`aime-2025`(数学,与现有重叠)、`arena-hard`(与 LMArena 重叠)—— 应需求已补,重叠已标注。
 - [x] **MEDIQA 2023+ 系列**:`mediqa-series`(CORR/M3G/MAGIC/WV/OE,2024–2025)。
 - [x] **cybersecurity**(此前完全空白):`cyberseceval`(Meta Purple Llama,v1→v4;secure-coding + dual-use offensive;无 online 名次榜=`genre: dataset`)——**待签**。
-- [ ] 仍可补:**SWE-bench Pro**、graph/GNN(OGB)、bio-signal 的 EEG-FM-Bench / 多模态 LLM 读 ECG(PULSE)等——按需。
+- [x] **graph/GNN**(此前完全空白):`ogb`(Open Graph Benchmark,Stanford/SNAP,NeurIPS 2020;node/link/graph 三类任务;评 GNN 非 LLM,间接输入)——**待签**。
+- [x] **多模态 LLM 读 ECG 图像**:`pulse-ecg`(PULSE/ECGBench,npj Digital Medicine 2026;与 `signalmc-med` 的信号编码器正交)——**待签**。
+- [x] **SWE-bench 抗污染 + 长程续作**:`swe-bench-pro`(Scale AI,2025;public/held-out/commercial 三层;刻意近族)——**待签**。
+- [ ] 仍可补:bio-signal 的 EEG-FM-Bench、SWE-bench Pro 之外的其他轴等——按需。
 
 ### C. 工具/体验
 - [x] `check_publish.py` 非阻断 stale `as_of` 告警(>365 天)。

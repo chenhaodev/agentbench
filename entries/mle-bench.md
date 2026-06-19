@@ -40,6 +40,11 @@ agent_summary:
   author: agent
   generated: "2026-06-17"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-17"
+  confidence: low          # low / medium / high
+
 moa:
   capability_axes: [ml-engineering, model-training, data-preparation, experimentation, agentic]
   modalities: [text]
@@ -69,8 +74,7 @@ MLE-bench(OpenAI,ICLR 2025 oral)是评测 **agent 做 ML 工程**能力的事实
 <!-- 仅事实;来源:OpenAI 官方页、arXiv 2410.07095、openai/mle-bench 仓库。 -->
 
 ## Expert verdict
-
-<!-- 人工署名(chenhao)。值得回答:
-     1) 分数是"模型×脚手架"的合成——给 MoA 选 ML 工程冠军时,你怎么把脚手架红利和底座能力分开?
-     2) 16.9% 铜牌:你把它读成"agent 还不能自动做 ML"的证据,还是"在窄任务上已可用"的下限?
-     3) Kaggle 方案公开 → 污染;你信 MLE-bench 分到什么程度,要不要配一道私域、无公开解的 ML 任务复核? -->
+人工署名(chenhao)。值得回答:
+1) 分数是"模型×脚手架"的合成——给 MoA 选 ML 工程冠军时,你怎么把脚手架红利和底座能力分开? 信号/特征工程时，我还是信任它的。
+2) 16.9% 铜牌:你把它读成"agent 还不能自动做 ML"的证据,还是"在窄任务上已可用"的下限? 我认为是"在窄任务上已可用"的下限
+3) Kaggle 方案公开 → 污染;你信 MLE-bench 分到什么程度,要不要配一道私域、无公开解的 ML 任务复核? 不用

@@ -38,6 +38,11 @@ agent_summary:
   author: agent
   generated: "2026-06-17"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-22"
+  confidence: medium          # low / medium / high
+
 moa:
   capability_axes: [function-calling, tool-use, multi-turn-agentic, planning]
   modalities: [text]
@@ -65,5 +70,4 @@ BFCL(Berkeley Function-Calling Leaderboard;UC Berkeley 的 Gorilla 项目,Patil 
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:为 agent 选模型时,BFCL 的多轮 agentic 分(V3)该比单轮调用分权重
-     高多少?"AST 结构对≠真跑成功"会不会让你坚持加一层真实执行的私域评测? -->
+BFCL 的 AST 结构匹配分对衡量 function-calling 已经够用,我不强求再叠一层真跑执行的私域评测;选 agent 模型时多轮 agentic(V3)分可比单轮稍高权重,但二者都直接信 BFCL 自身分即可。

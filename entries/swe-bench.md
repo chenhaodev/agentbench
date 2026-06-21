@@ -45,6 +45,11 @@ agent_summary:
   author: agent
   generated: "2026-06-17"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-22"
+  confidence: medium          # low / medium / high
+
 moa:
   capability_axes: [software-engineering, code-generation, agentic, tool-use, repo-level-reasoning]
   modalities: [text]
@@ -79,7 +84,4 @@ SWE-bench(Jimenez、Yang 等,Princeton NLP,ICLR 2024 oral)是评测模型/agent 
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:
-     1) Verified 已 ~80% 多家并列饱和,你会把它当"区分器"还是仅当"及格门槛"?在 MoA 里据此选编码冠军模型还需补什么私域信号?
-     2) 已知 gold patch 污染,你给原始/Verified 分打多少折扣?是否要求改看 SWE-bench Live 这类滚动榜才算数?
-     3) 它只测 Python issue→patch 一种工作流;对你关心的工程能力(多语言、调试、架构),这个分的外推性有多强? -->
+Verified 已多家并列 ~80% 饱和,叠加已知 gold-patch 污染,原始/Verified 分对我已基本没有区分力。在 MoA 里选编码冠军模型不再据它定主信号——改看 SWE-bench Live 这类滚动、抗污染的榜才算数;原始分只当历史参照与及格门槛。

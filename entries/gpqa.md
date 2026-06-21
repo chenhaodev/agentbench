@@ -32,6 +32,11 @@ agent_summary:
   author: agent
   generated: "2026-06-17"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-22"
+  confidence: medium          # low / medium / high
+
 moa:
   capability_axes: [hard-reasoning, scientific-knowledge]
   modalities: [text]
@@ -59,5 +64,4 @@ AI 获取真信息)。实践中常用更难的 **GPQA-Diamond** 子集,它已成
 
 ## Expert verdict
 
-<!-- 人工署名(chenhao)。值得回答:硬推理(GPQA-Diamond)在 MoA 选型里该当独立维度,还是被通用推理
-     涵盖?选择题形式会不会低估/高估真实推理?"专家 65% 也不算高"对它的天花板意味着什么? -->
+硬推理可作一个参考维度,但 GPQA 的选择题(MCQ)形式会高估真实推理——蒙对/排除法都拉高分,而领域专家自己也只有 ~65%。所以我对 GPQA 分打折看,不当作可直接据以选型的独立硬指标。

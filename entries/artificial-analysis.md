@@ -37,6 +37,12 @@ agent_summary:
   author: agent
   generated: "2026-06-22"
 
+expert_verdict:
+  signed_by: chenhao
+  signed_date: "2026-06-22"
+  confidence: medium          # low / medium / high
+  one_liner: "透明的独立第三方:质量当粗筛、速度×价格最有用;综合分必下钻,别当能力定论。"
+
 moa:
   capability_axes: [model-selection, composite-intelligence, cost-performance-tradeoff, inference-speed, price-comparison]
   modalities: [text, image, audio, video, tool-use]
@@ -78,7 +84,4 @@ Humanity's Last Exam、GPQA Diamond、CritPt、AA-Omniscience、AA-LCR(覆盖 ag
 
 ## Expert verdict
 
-<!-- 用中文写,且必须在注释之外。Human-signed (chenhao)。值得回答:
-     1) AA 是本仓唯一覆盖"速度×价格"轴的条目。起草 MoA 做路由时,你会把它的质量指数当独立信号,还是只取它的价格/延迟、质量另信专项榜?
-     2) "自己跑评测、不取 lab 自报数"值得加多少权威分?但它是商业公司(institution_count=0)、指数还换版本——你给这个综合分打几折,会要求下钻看分项吗?
-     3) 它默认 trending/被媒体广泛采信属于 popularity;在你的"人气≠权威"标尺里,AA 这种"方法透明的独立第三方"算不算一种可采信的权威,还是仍只当 sentiment? -->
+AA 的质量指数我当**独立的粗筛信号**——起草 MoA 时先用它快速圈定候选,但不据它定稿。它"自己跑评测、不取 lab 自报数"值得**加权威分**,可它是商业公司、Intelligence Index 还换版本,所以这个综合分**必须下钻看分项**才能进选型。至于"人气≠权威":AA 这种方法透明的独立第三方**介于二者之间,看用途**——拿来粗筛/路由时算一种可采信的轻权威,但要当某个子能力的能力定论,就仍只是 sentiment,得回到专项权威榜。它真正不可替代的价值在速度×价格轴,那是本仓其他条目都没覆盖的选型输入。

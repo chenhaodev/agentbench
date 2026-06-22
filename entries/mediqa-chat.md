@@ -20,7 +20,7 @@ popularity:
 methodology:
   evaluation: [automated, human]
   contamination_controls: "测试集仅在挑战赛时释出;取自真实/策展的医患对话。"
-  notes: "三个任务:A——句段级 Dialogue2Note 摘要 + 章节标题分类(MTS-Dialog,1.7k 对话);B——整篇临床病历摘要(ACI-Bench);C——Note2Dialogue 生成(ACI-Bench)。17 支队伍。由 ROUGE、BERTScore、BLEURT 的集成打分,并用 Pearson 相关校验对齐人工评分。"
+  notes: "三个任务:A——句段级 Dialogue2Note 摘要 + 章节标题分类（MTS-Dialog,1.7k 对话）;B——整篇临床病历摘要（ACI-Bench);C——Note2Dialogue 生成（ACI-Bench)。17 支队伍。由 ROUGE、BERTScore、BLEURT 的集成打分,并用 Pearson 相关校验对齐人工评分。"
 
 citations:
   - { title: "Overview of the MEDIQA-Chat 2023 Shared Tasks on the Summarization & Generation of Doctor-Patient Conversations (ACL ClinicalNLP 2023)", url: "https://aclanthology.org/2023.clinicalnlp-1.52/", accessed: "2026-06-16" }
@@ -31,7 +31,7 @@ as_of: "2026-06-16"
 freshness:
   status: aging
   last_checked: "2026-06-16"
-  note: "2023 shared task,基线属前-前沿-LLM 时代;任务(环境式病历生成)依然当下,但 leaderboard 快照已过时。"
+  note: "2023 shared task,基线属前-前沿-LLM 时代;任务（环境式病历生成）依然当下,但 leaderboard 快照已过时。"
 
 agent_summary:
   author: agent
@@ -47,7 +47,7 @@ moa:
   modalities: [text]
   access: [api, open-weights]
   recommended_for:
-    - "评测医患对话 → 临床病历摘要(环境式 scribe 用例)"
+    - "评测医患对话 → 临床病历摘要（环境式 scribe 用例）"
     - "一个具体的生成/摘要任务,补充 QA 背诵榜与行为榜"
   caveats:
     - "体裁是一次性 shared task,不是持续维护的 leaderboard——结果是 2023 年快照"
@@ -57,9 +57,9 @@ moa:
 
 ## Agent summary
 
-MEDIQA-Chat 2023 是一场公开评测竞赛(shared task),2023 年在 ACL 会议下属的 ClinicalNLP Workshop 上举办,由 Asma Ben Abacha 等人组织(来自 Microsoft / Nuance),主题是给医患对话做摘要和生成。它分三个任务。Task A 是把对话里的一段段内容压成就诊记录的对应片段(Dialogue2Note),再给片段标上章节标题,用的是 MTS-Dialog 数据集(约 1.7k 段短对话配好摘要,其中 1,201 条用于训练、100 条用于验证)。Task B 是把整段对话写成一份完整的临床病历(clinical note,即就诊记录),用的是 ACI-Bench 数据集。Task C 反过来,根据病历自动生成对话(Note2Dialogue),用来扩充训练数据。一共 17 支队伍参赛。打分用的是三种自动指标的组合:ROUGE、BERTScore、BLEURT——它们都是按机器输出和参考答案的重合程度自动算分;组织方还用 Pearson 相关系数检验这些自动分和人工打分是否一致。
+MEDIQA-Chat 2023 是一场公开评测竞赛（shared task）,2023 年在 ACL 会议下属的 ClinicalNLP Workshop 上举办,由 Asma Ben Abacha 等人组织（来自 Microsoft / Nuance）,主题是给医患对话做摘要和生成。它分三个任务。Task A 是把对话里的一段段内容压成就诊记录的对应片段（Dialogue2Note）,再给片段标上章节标题,用的是 MTS-Dialog 数据集（约 1.7k 段短对话配好摘要,其中 1,201 条用于训练、100 条用于验证）。Task B 是把整段对话写成一份完整的临床病历（clinical note,即就诊记录）,用的是 ACI-Bench 数据集。Task C 反过来,根据病历自动生成对话（Note2Dialogue）,用来扩充训练数据。一共 17 支队伍参赛。打分用的是三种自动指标的组合:ROUGE、BERTScore、BLEURT——它们都是按机器输出和参考答案的重合程度自动算分;组织方还用 Pearson 相关系数检验这些自动分和人工打分是否一致。
 
-它瞄准的是"环境式记录助手"(ambient scribe)这类用法,也就是医生看诊时,系统在旁边把对话直接转成结构化的就诊记录。这是一个生成类任务,正好补上本集合里其它几份偏选择题背诵或行为测试的榜单。它也有几个短板:这是一次性的 2023 年比赛,当时的基线模型还在顶级大模型出现之前;而且按重合度算分的指标,对病历是否在临床上写对了事实,反映得并不够。
+它瞄准的是“环境式记录助手”（ambient scribe）这类用法,也就是医生看诊时,系统在旁边把对话直接转成结构化的就诊记录。这是一个生成类任务,正好补上本集合里其它几份偏选择题背诵或行为测试的榜单。它也有几个短板:这是一次性的 2023 年比赛,当时的基线模型还在顶级大模型出现之前;而且按重合度算分的指标,对病历是否在临床上写对了事实,反映得并不够。
 
 <!-- 仅事实;来源为 ACL Anthology 概述、组织者 GitHub 与 ACI-Bench 论文。 -->
 

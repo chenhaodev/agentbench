@@ -15,12 +15,12 @@ authority:
 
 popularity:
   trending: false
-  as_of: "2026-06-16"           # 全新(论文 2026-06-12 发表);经 LinkedIn 临床医生讨论发现
+  as_of: "2026-06-16"           # 全新（论文 2026-06-12 发表）;经 LinkedIn 临床医生讨论发现
 
 methodology:
   evaluation: [human, blind]
   contamination_controls: "查询是真实的医生-向-LLM 提问,采自真实临床环境——不是可复用的考试题,难以训练或刷分。"
-  notes: "100 条真实临床查询,采自医生自己的 LLM 提问;12 位美国临床医生做随机、盲法评审,产生 1,800 条模型-问题标注。是该研究三个阶段之一(另两个为 500 道 MedQA + 500 道 HealthBench)。"
+  notes: "100 条真实临床查询,采自医生自己的 LLM 提问;12 位美国临床医生做随机、盲法评审,产生 1,800 条模型-问题标注。是该研究三个阶段之一（另两个为 500 道 MedQA + 500 道 HealthBench)。"
 
 models_ranked:
   - { model: GPT-5.2, axis: real-clinical-queries, license: closed, note: "前沿梯队——胜过专用临床工具" }
@@ -63,9 +63,9 @@ moa:
 
 ## Agent summary
 
-RCQ(Real Clinical Queries,意思是"真实临床查询")是一份小而看重真实场景的 benchmark(给 AI 出的标准考卷)。它出自一篇 Nature Medicine 研究(编号 s41591-026-04431-5,2026 年 6 月 12 日发表),作者来自 NYU Langone Health 和 University of Texas at Austin 这两家美国机构。它的题目是 100 条真实临床查询,也就是医生在日常看病时自己拿去问 AI(这里的 LLM 指大语言模型,就是 ChatGPT 那类会聊天答题的 AI)的问题。收集好之后,12 位美国临床医生在不知道答案出自哪个模型的情况下打分(也就是盲法评审),一共产生了 1,800 条"模型答某道题"的评价记录。RCQ 只是这篇论文三个测试环节中的一个,另外两个是 500 道 MedQA 题和 500 道 HealthBench 题。
+RCQ（Real Clinical Queries,意思是“真实临床查询”）是一份小而看重真实场景的 benchmark（给 AI 出的标准考卷）。它出自一篇 Nature Medicine 研究（编号 s41591-026-04431-5,2026 年 6 月 12 日发表）,作者来自 NYU Langone Health 和 University of Texas at Austin 这两家美国机构。它的题目是 100 条真实临床查询,也就是医生在日常看病时自己拿去问 AI（这里的 LLM 指大语言模型,就是 ChatGPT 那类会聊天答题的 AI）的问题。收集好之后,12 位美国临床医生在不知道答案出自哪个模型的情况下打分（也就是盲法评审）,一共产生了 1,800 条“模型答某道题”的评价记录。RCQ 只是这篇论文三个测试环节中的一个,另外两个是 500 道 MedQA 题和 500 道 HealthBench 题。
 
-最主要的结论是:几款最强的通用模型(GPT-5.2、Gemini 3.1 Pro、Claude Opus 4.6)赢过了专门给临床场景做的 AI 工具。在 RCQ 上,OpenEvidence 和 UpToDate Expert AI 的表现只跟 Google Search AI Overview(谷歌搜索结果上方那段 AI 总结)差不多,而临床医生更喜欢通用模型给的答案。RCQ 的好处是贴近真实使用、不容易被刷分:题目是真问题,又由人盲评打分。它的短板也很明显:只有 100 道题,样本太少,结论说服力有限;而且只是一项还没被别人重复验证过的研究,用的还是 2026 年初那一批模型,等于停在了那个时间点的快照上。
+最主要的结论是:几款最强的通用模型（GPT-5.2、Gemini 3.1 Pro、Claude Opus 4.6）赢过了专门给临床场景做的 AI 工具。在 RCQ 上,OpenEvidence 和 UpToDate Expert AI 的表现只跟 Google Search AI Overview（谷歌搜索结果上方那段 AI 总结）差不多,而临床医生更喜欢通用模型给的答案。RCQ 的好处是贴近真实使用、不容易被刷分:题目是真问题,又由人盲评打分。它的短板也很明显:只有 100 道题,样本太少,结论说服力有限;而且只是一项还没被别人重复验证过的研究,用的还是 2026 年初那一批模型,等于停在了那个时间点的快照上。
 
 <!-- 仅事实;来源为所引 Nature Medicine 文章与 TechTarget 报道。 -->
 

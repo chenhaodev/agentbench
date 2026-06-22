@@ -20,7 +20,7 @@ popularity:
 methodology:
   evaluation: [automated]
   contamination_controls: "大学水平的专家题目;更难的 MMMU-Pro 变体用于对抗走捷径与饱和。"
-  notes: "11.5K 道多模态题目,取自大学考试、测验与教科书,覆盖 6 个学科(Art & Design、Business、Science、Health & Medicine、Humanities & Social Science、Tech & Engineering)、30 个科目、183 个子领域,以及 30 种异构图像类型(图表、示意图、地图、表格、乐谱、化学结构式)。需要大学水平的学科知识 + 审慎推理。"
+  notes: "11.5K 道多模态题目,取自大学考试、测验与教科书,覆盖 6 个学科（Art & Design、Business、Science、Health & Medicine、Humanities & Social Science、Tech & Engineering)、30 个科目、183 个子领域,以及 30 种异构图像类型（图表、示意图、地图、表格、乐谱、化学结构式）。需要大学水平的学科知识 + 审慎推理。"
 
 citations:
   - { title: "MMMU: A Massive Multi-discipline Multimodal Understanding and Reasoning Benchmark for Expert AGI (Yue et al., 2023; CVPR 2024)", url: "https://arxiv.org/abs/2311.16502", accessed: "2026-06-16" }
@@ -47,19 +47,19 @@ moa:
   modalities: [image, text]
   access: [api, open-weights]
   recommended_for:
-    - "事实上的多模态推理锚点——几乎每份 VLM/omni tech report 都会对标(如 Qwen3-Omni)"
+    - "事实上的多模态推理锚点——几乎每份 VLM/omni tech report 都会对标（如 Qwen3-Omni)"
     - "跨多学科、多图像类型的大学水平视觉推理"
   caveats:
     - "选择题 → 有记忆/走捷径风险;要更难的信号请看 MMMU-Pro"
-    - "它在厂商 tech report 里的普遍性是 cross-report 频次(popularity),不是中立权威——厂商只报自己擅长的榜"
+    - "它在厂商 tech report 里的普遍性是 cross-report 频次（popularity),不是中立权威——厂商只报自己擅长的榜"
     - "含一个 Health & Medicine 子集,但整体是通用榜,不是医疗 benchmark"
 ---
 
 ## Agent summary
 
-MMMU(Yue et al., 2023;CVPR 2024)可以看作衡量"AI 同时看图读文(多模态)再做推理"能力的一份标准考卷(benchmark)。它几乎是这一类能力的默认考卷,也是本仓库里用"翻技术报告(tech report)"这个办法找到的最典型例子:几乎每份视觉-语言模型(VLM)或全模态(omni)模型的报告都会拿它来比一比,包括 Qwen3-Omni。这份考卷有 11.5K 道题,题目取自大学的考试、测验和教科书,横跨 6 个学科(Art & Design、Business、Science、Health & Medicine、Humanities & Social Science、Tech & Engineering),细分到 30 个科目、183 个子领域,配的图也有 30 种(图表、示意图、地图、乐谱、化学结构式等等)。它要求模型具备大学难度(college-level)的知识,再加上小心的推理。官方还提供一个排行榜(leaderboard)。题目被刷得太熟、分数普遍偏高之后,作者又出了更难的 MMMU-Pro 版本来拉开差距。
+MMMU（Yue et al., 2023;CVPR 2024）可以看作衡量“AI 同时看图读文（多模态）再做推理”能力的一份标准考卷（benchmark）。它几乎是这一类能力的默认考卷,也是本仓库里用“翻技术报告（tech report）”这个办法找到的最典型例子:几乎每份视觉-语言模型（VLM）或全模态（omni）模型的报告都会拿它来比一比,包括 Qwen3-Omni。这份考卷有 11.5K 道题,题目取自大学的考试、测验和教科书,横跨 6 个学科（Art & Design、Business、Science、Health & Medicine、Humanities & Social Science、Tech & Engineering）,细分到 30 个科目、183 个子领域,配的图也有 30 种（图表、示意图、地图、乐谱、化学结构式等等）。它要求模型具备大学难度（college-level）的知识,再加上小心的推理。官方还提供一个排行榜（leaderboard）。题目被刷得太熟、分数普遍偏高之后,作者又出了更难的 MMMU-Pro 版本来拉开差距。
 
-它几乎在每份前沿报告里都出现,这件事本身是一种"被多份报告反复引用"的信号。这比看 HuggingFace 上的点赞数、看社交媒体的热度要靠谱一些,但说到底仍然只是人气(popularity),不等于权威(authority):厂商只挑自己赢的榜来报。另外它是选择题(MCQ),所以存在模型提前见过题、靠背答案虚高的风险,而且它面向通用领域;里面虽然带了一个 Health & Medicine 子集,但这不会让它变成一份医疗专用的考卷。
+它几乎在每份前沿报告里都出现,这件事本身是一种“被多份报告反复引用”的信号。这比看 HuggingFace 上的点赞数、看社交媒体的热度要靠谱一些,但说到底仍然只是人气（popularity）,不等于权威（authority）:厂商只挑自己赢的榜来报。另外它是选择题（MCQ）,所以存在模型提前见过题、靠背答案虚高的风险,而且它面向通用领域;里面虽然带了一个 Health & Medicine 子集,但这不会让它变成一份医疗专用的考卷。
 
 <!-- 仅事实;来源为所引 arXiv 论文、官网与 HF 数据集。 -->
 

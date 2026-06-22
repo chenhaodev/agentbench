@@ -68,26 +68,11 @@ tags: [medical, chinese, multimodal, agents, leaderboard]
 
 ## Agent summary
 
-MedBench 是面向**中文医疗 AI**的标准化、云端基准系统,托管在 OpenCompass
-(`medbench.opencompass.org.cn`)。最初的 2024 版汇集了它所称的当时最大医疗评测数据集——
-**300,901 道题、覆盖 43 个临床专科**——构建在全自动云端基础设施上,将题目与标准答案物理隔离,并用
-*动态评测*抵抗走捷径学习与背答案。
+MedBench 是给中文医疗 AI 出的一套标准考卷(benchmark,即基准测试),放在网上、由系统自动评分,托管在 OpenCompass 平台(`medbench.opencompass.org.cn`)。最初的 2024 版攒出了它自称当时最大的医疗题库:300,901 道题,覆盖 43 个临床专科。它跑在全自动的云端系统上,把题目和标准答案分开存放(物理隔离),还采用会变的"动态评测",防止模型靠提前背过的答案虚高(也就是走捷径学习)。
 
-**MedBench v4**(arXiv 2511.14439,2025 年 11 月)将其扩展到 **超过 700,000 个专家策展任务,
-覆盖 24 个一级 / 91 个二级专科**,由 **500 多家机构**的临床医生审核,并评测三类模型——语言模型、
-多模态系统与自主 agent(15 个前沿模型)。开放式回答由一个对齐人类评分的 LLM-as-judge 打分。报告
-中的领先者:**Claude Sonnet 4.5** 在 base LLM 居首,**62.5/100**(类均值 54.1);**GPT-5** 在
-多模态居首,**54.9/100**(均值 47.5);一个 **基于 Claude Sonnet 4.5 的 agent** 在 agent 赛道
-居首,总分 **85.3/100**(safety 88.9)。一个醒目发现是:即便临床知识得分很高,base LLM 的
-**safety 与 ethics 仍然薄弱**(~18.4/100)。
+到了 MedBench v4(arXiv 2511.14439,2025 年 11 月),题库扩到超过 700,000 个由专家挑选的任务,覆盖 24 个一级、91 个二级专科,由 500 多家机构的临床医生审核,一共测了 15 个前沿模型,分成三类:普通语言模型、能同时看图读文的多模态模型(multimodal),以及能自己分步骤、调用工具干活的智能体(agent)。其中开放式的回答,由另一个 AI 来当"阅卷老师"打分(LLM-as-judge),它的打分已经过校准、向人类评分看齐。报告里的领先者是这样的:在没做专门改造的通用大模型(base-LLM)这一档,Claude Sonnet 4.5 居首,得 62.5/100(这一档的平均分是 54.1);在多模态这一档,GPT-5 居首,得 54.9/100(平均 47.5);在智能体这一档,一个基于 Claude Sonnet 4.5 搭的 agent 居首,总分 85.3/100,其中回答的安全与合规(safety)拿了 88.9。有一个值得注意的现象:就算临床知识答得很好,通用大模型(base-LLM)在回答的安全性与伦理合规(safety 与 ethics)上仍然很弱,大约只有 18.4/100。
 
-**社交热度(sentiment,不是 authority):** MedBench 的社交存在感真实但更**区域化**——在中文和
-日文生态更强(如 @ModelScope2022、一则 @ELYZA_inc 讲解),且在模型发布宣传里通常作为*次要*指标、
-排在 HealthBench 之后,而非头条。Reddit 上几乎没有讨论(最接近的命中是无关的 Stanford
-MedAgentBench)。在 LinkedIn 上,中国厂商把它当作可信度背书——例如 iFlytek 的星火医疗大模型
-V3.5 将"MedBench Agent Evaluation 榜首"列入其第三方验证——强化了 MedBench 作为**区域(中国)
-权威信号**的定位。X permalink 见 `popularity.social`(2026-06-16 采集;LinkedIn 帖子 URL 无法
-干净抓取)。
+社交热度(这里说的是网上的讨论声量 sentiment,不等于权威性 authority):MedBench 在社交平台确实有人提,但偏区域性,在中文和日文圈子里更热(比如 @ModelScope2022,以及一条 @ELYZA_inc 的日文讲解),而且在各家发布模型的宣传里,它通常只是个次要指标,排在 HealthBench 后面,不当头条。Reddit 上几乎没人讨论它(搜到最接近的也只是一个不相干的 Stanford MedAgentBench)。在 LinkedIn 上,中国厂商把它当成可信度的背书,例如科大讯飞(iFlytek)的星火医疗大模型 V3.5,就把"MedBench Agent Evaluation 榜首"写进了它的第三方验证里。这些都说明 MedBench 更像是中国本地的一个权威信号。X 的原始链接见 `popularity.social`(2026-06-16 采集;LinkedIn 帖子的 URL 没法干净抓取)。
 
 <!-- 仅事实;数字来源为两篇所引 arXiv 摘要 + 登录浏览 X/Reddit。不含观点。 -->
 

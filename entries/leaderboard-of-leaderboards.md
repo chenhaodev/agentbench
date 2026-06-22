@@ -59,16 +59,9 @@ moa:
 
 ## Agent summary
 
-本条目覆盖 **aggregator** 体裁:HuggingFace 上的"榜中榜"应用——它们索引、搜索、排序*其他*
-leaderboard,而不亲自评测模型。**MAYA-AI 的"Leaderboard of Leaderboards"**让你浏览并对比 HF 上
-托管的 benchmark leaderboard,按类别筛选,并**按 likes 或 trending 排序**。**OpenEvals 的
-"every-leaderboards"**在 **11 个 HF benchmark** 上给出统一视图(按模型名、规模、任务筛选),其
-**"find-a-leaderboard"**是发现式搜索。
+本条目说的是一类叫"聚合器"(aggregator)的东西,也就是把很多榜的结果汇到一起的"榜中榜"。它们都跑在 HuggingFace(简称 HF,一个放 AI 模型和工具的网站)上,只负责索引、搜索和排序别人的榜,自己不给模型打分。其中 MAYA-AI 做的"Leaderboard of Leaderboards"让你浏览、对比 HF 上托管的各种基准测试榜(benchmark,就是给 AI 出的标准考卷),可以按类别筛,也可以按点赞数(likes)或热度(trending)排序。OpenEvals 做的"every-leaderboards"则把 11 个 HF 上的 benchmark 拢到一个统一界面里看,能按模型名、规模、任务来筛;它的"find-a-leaderboard"则是一个帮你找榜的搜索工具。
 
-它们是 **AgentBench 的客观对照面**:回答*"有哪些榜、谁在上面"*——自动、且快得无可匹敌;而本仓库回答
-*"该不该信这个榜,高分到底买到了什么"*。它们默认的 **likes/trending 排序是人气信号,不是质量信号**,
-且主要覆盖 HF 托管的榜,因此对 workshop shared task、论文内置榜与区域榜代表不足。这个缺口正是本项目
-按 `genre` × 来源普查(`docs/SOURCING.md`)、而不依赖聚合器索引的原因。
+可以把它们看成 AgentBench 的"对照面":它们回答的是"有哪些榜、谁在榜上",而且又快又自动;本仓库回答的是另一个问题——"这个榜该不该信,考了高分到底说明了什么"。要注意,它们默认按点赞和热度排序,这只反映人气,不反映质量。而且它们主要收的是 HF 上托管的榜,对学术研讨会的共享任务(shared task)、写在论文里的榜、以及各地区自己的榜,都收得不全。正是这个缺口,让本项目选择按体裁(genre)和来源一个个清点(见 `docs/SOURCING.md`),而不是直接靠这些聚合器的索引。
 
 <!-- 仅事实;来源为所引 HuggingFace Spaces。 -->
 

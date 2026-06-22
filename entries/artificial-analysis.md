@@ -61,24 +61,11 @@ tags: [aggregator, model-selection, price, speed, intelligence-index, meta]
 
 ## Agent summary
 
-本条目覆盖 **aggregator** 体裁里的**"对比/指数"型**(与本仓已有的"发现"型
-[leaderboard-of-leaderboards] 互补:那个索引别人的榜,这个把多项评测压成可横比的选型指数)。
-**Artificial Analysis(AA)**由 **Micah Hill-Smith(Co-founder & CEO)与 George Cameron
-(Co-founder & CPO)于 2023 年发起、2024 年 1 月公开上线**,定位是**独立第三方**的 AI 模型/推理服务
-横评平台,覆盖 **proprietary 与 open-weights** 两类模型、跨 OpenAI、Bedrock、Together.ai 等多家 provider。
+本条目属于 aggregator(聚合器)体裁里的"对比/指数"型。它和本仓已有的"发现"型 [leaderboard-of-leaderboards] 是互补的:那个负责索引别人家的榜,这个则是把多项评测压成一个可以横着比的选型指数。Artificial Analysis(简称 AA)由 Micah Hill-Smith(Co-founder & CEO)和 George Cameron(Co-founder & CPO)于 2023 年发起,2024 年 1 月公开上线,定位是独立第三方的 AI 模型和推理服务横评平台。它同时覆盖 proprietary(闭源)和 open-weights(权重公开、可自部署)两类模型,横跨 OpenAI、Bedrock、Together.ai 等多家 provider(供应商)。
 
-它的核心产物是 **Artificial Analysis Intelligence Index(AA-II)**——一个 **0–100 的综合质量分**。
-当前 **v4.1 由 9 项评测按成本加权合成**:GDPval-AA v2、τ³-Banking、Terminal-Bench v2.1、SciCode、
-Humanity's Last Exam、GPQA Diamond、CritPt、AA-Omniscience、AA-LCR(覆盖 agentic 真实工作任务、编码、
-科学/物理推理、知识、长上下文)。除质量外,它在**同一视图**给出**速度**(输出 tokens/s、Time-to-First-Token)
-与**价格**(按 cache/input/output 加权的 blended 价),另有 Omniscience Index 及图像/视频/音乐/语音/编码 agent
-等独立榜。
+它最核心的产物是 Artificial Analysis Intelligence Index(AA-II),一个 0–100 的综合质量分。当前的 v4.1 版本由 9 项评测按成本加权合成:GDPval-AA v2、τ³-Banking、Terminal-Bench v2.1、SciCode、Humanity's Last Exam、GPQA Diamond、CritPt、AA-Omniscience、AA-LCR,涵盖 agentic(能自己分步骤、调用工具干活)的真实工作任务、编码、科学和物理推理、知识、长上下文。除了质量分,它还在同一个视图里给出两样东西:速度(每秒输出多少 tokens、首字延迟 Time-to-First-Token)和价格(按缓存、输入、输出加权算出的 blended 综合价)。此外它还有 Omniscience Index,以及图像、视频、音乐、语音、编码 agent 等独立榜单。
 
-一个关键事实区分:**AA 会自己跑标准化评测、而非采用各 lab 自报数**——其公开动机是 lab 之间
-"prompt 方式不同、挑 chain-of-thought 例子刷分"(如早期 Gemini 1.0 Ultra 用 32-shot 在 MMLU 上压 GPT-4)。
-因此它**不是纯索引别家榜的聚合器**,而是"自评 + 合成指数 + 跨 provider 横比"的混合体。对起草 MoA 的人,
-它的独特价值在于**唯一把质量、速度、价格摆在一起做选型/路由**;但要记住:合成指数会换版本、组成 benchmark 的
-污染会传导进总分,且它的权威来自**方法透明与被广泛采信(popularity 信号)**,而非学术引用或机构背书。
+这里有个关键的事实要分清:AA 是自己跑一套标准化评测,而不是直接拿各家 lab(实验室)自报的数字。它这么做的公开理由是,各家 lab 出题方式不一样,会挑对自己有利的 chain-of-thought(让模型一步步推理)例子来刷分,比如早期 Gemini 1.0 Ultra 就用 32-shot 在 MMLU 上压过了 GPT-4。所以它不是那种纯粹给别家榜单做索引的聚合器,而是"自己评测 + 合成指数 + 跨 provider 横比"的混合体。对起草 MoA(把多个模型组队、各管一块来用)的人来说,它最独特的价值是把质量、速度、价格三样东西摆在一起,方便选型和路由。但有几点要记住:合成指数会换版本,组成它的 benchmark(基准测试,即给 AI 出的标准考卷)一旦有数据污染(模型提前见过考题、靠背答案虚高)也会传导进总分;而且它的权威来自方法透明加上被业界广泛采信(也就是 popularity 信号),并不是靠学术引用或机构背书。
 
 <!-- 仅事实;来源:AA 首页、AA Methodology 页、Latent Space 创始人访谈(均见 citations,accessed 2026-06-22)。9 项组成为 Intelligence Index v4.1 的站点口径。 -->
 

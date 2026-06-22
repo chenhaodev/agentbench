@@ -56,19 +56,15 @@ tags: [medical, ecg, cardiology, multimodal, llm-reads-image, census-anchor]
 
 ## Agent summary
 
-PULSE / ECGBench(Liu、Bai、Yue、Ping Zhang 等,AIMedLab,arXiv 2410.19008,2024-10;2026 已上 **npj Digital Medicine**)
-评测的是 **多模态 LLM 读 ECG 图像** 的能力。这里要和 repo 里已有的 signalmc-med 划清界限:signalmc-med 评的是**信号编码器**
-(把原始 ECG/PPG 波形编码成表示),而 PULSE 评的是**多模态 LLM 看 ECG 图片**(打印或数字图像)——两者**正交**,
-合起来才覆盖"机器读心电"的两种现实路径。PULSE 刻意针对**资源受限场景**:很多地方只拿得到 ECG 的**图片**,拿不到原始信号。
+这条目讲的是一套围绕"读心电图"的研究成果,出自 AIMedLab 团队(Liu、Bai、Yue、Ping Zhang 等),论文编号 arXiv 2410.19008,2024 年 10 月发布,2026 年已登上医学期刊 npj Digital Medicine。这里的 ECG(心电图)就是记录心脏电活动的那张波形图。它测的是 multimodal LLM(能看图读文的大模型,也叫多模态大模型)看懂心电图图片的本事。
 
-**三件套。**(1)**ECGInstruct**:百万级 ECG 图像指令微调数据集;(2)**PULSE**:在其上训练的**开源**多模态 LLM;
-(3)**ECGBench**:评测基准,覆盖 **4 类** ECG 图像解读任务、跨 **9 个**数据集(含真实世界图与合成图)。
+要和本 repo 里已有的 signalmc-med 分清楚。signalmc-med 测的是"信号编码器",也就是把原始的心电、脉搏波形直接转成机器能用的表示;而 PULSE 测的是大模型去看一张心电图的图片(打印出来的或屏幕上的数字图像)。这两件事互不重叠,合起来才覆盖"机器读心电"的两条现实路线。PULSE 特意瞄准资源受限的情况:很多地方只能拿到心电图的图片,拿不到原始信号。
 
-**结果。** PULSE 在 ECGBench 上较通用多模态 LLM(如 GPT-4V 等)**平均准确率提升 15%–30%**,设新 SOTA。
-评分混用 automated 与 LLM-judge(开放式解读题)。
+整套东西有三块。一是 ECGInstruct,一个百万级别的心电图图像数据集,用来教模型;二是 PULSE,在这套数据上训练出来的开源多模态大模型(open-weights,权重公开、可以自己部署);三是 ECGBench,一份基准测试(benchmark,就是给 AI 出的标准考卷),覆盖 4 类心电图解读任务,题目来自 9 个数据集,既有真实世界的图,也有合成的图。
 
-**三信号分离提醒。** 权威性比纯预印本强一档——已上 **npj Digital Medicine**(同行评审);但能力声明要警惕**自评循环**:
-PULSE 是作者自训模型、在作者自建的 ECGBench 上领先,SOTA 需第三方独立复核。引用数本条**未核实具体数值**,不臆造。
+结果方面,PULSE 在 ECGBench 上比通用的多模态大模型(比如 GPT-4V 等)平均准确率高出 15%–30%,刷新了当时的最好成绩(SOTA)。评分用了两种方式:一部分自动判分,一部分让另一个大模型来判(LLM-judge),后者用在开放式的解读题上。
+
+读这个数字时要把几种信号分开看。权威性上,它比单纯的预印本强一档,已经过 npj Digital Medicine 的同行评审。但能力上的说法要留个心眼:这是作者自己训练的模型,又在作者自己出的 ECGBench 上拿第一,属于自己考自己,这种 SOTA 还需要第三方独立复核。引用数这条本词条没有去核实具体数值,不编。
 
 <!-- 仅事实;来源:arXiv 2410.19008、npj Digital Medicine(2026)、PULSE 项目页、HF ECGBench、OpenReview。与 signalmc-med 的正交关系为事实陈述。 -->
 

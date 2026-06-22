@@ -62,18 +62,18 @@ tags: [cybersecurity, secure-coding, ai-safety, red-team, dual-use, meta, purple
 
 ## Agent summary
 
-CyberSecEval(又名 Purple Llama CyberSecEval)是 Meta 开源的一套**评估 LLM 网络安全风险与能力**的基准,2023 年 12 月 7 日首发(arXiv 2312.04724),此后迭代到 v2(2024-04,arXiv 2404.13161,新增 prompt injection 与 code interpreter abuse)、v3(2024 年 8 月,arXiv 2408.01605)和当前的 **v4**(并入与 CrowdStrike 合作的 CyberSOCEval,另有独立论文 arXiv 2509.20166);代码与全部套件在 `meta-llama/PurpleLlama` 仓库的 `CybersecurityBenchmarks` 下。它**不是一个在线排行榜**,而是一组你自己跑的测试套件——这正是把它收进来的 census 价值:网络安全这条轴此前在本库完全空白,而它的"无名次榜、按风险维度测量"的形态也和大多数现有条目不同。
+CyberSecEval(又名 Purple Llama CyberSecEval)是 Meta(开发 Llama 系列大模型的公司)开源的一套基准测试,也就是给 AI 出的标准考卷,专门考察大语言模型(LLM,即能读写文字的通用 AI)在网络安全上的风险和能力。它 2023 年 12 月 7 日首发(arXiv 2312.04724,arXiv 是论文预印本网站,编号可查到原文),之后一路更新:v2(2024-04,arXiv 2404.13161,新增 prompt injection 和 code interpreter abuse 两项)、v3(2024 年 8 月,arXiv 2408.01605),到现在的 v4(把和 CrowdStrike 合作的 CyberSOCEval 并了进来,另有独立论文 arXiv 2509.20166)。代码和全部测试套件都放在 `meta-llama/PurpleLlama` 仓库的 `CybersecurityBenchmarks` 目录下。要注意它不是一个在线排行榜,而是一组你得自己跑起来的测试套件。它对本库的价值正在这里:网络安全这条线之前在本库完全空白,而且它"不排名次、只按风险维度逐项测量"的形态,也和库里大多数条目不一样。
 
-**它测什么。** 两大类风险:
+它考什么?分两大类风险。
 
-1. **对模型自身与下游用户的风险**——`Instruct` / `Autocomplete`(诱导模型在指令式或自动补全场景里写出不安全代码)、`Code Interpreter` 滥用、`Textual` 与 `Visual Prompt Injection`(后者是多模态:文字+图片)。
-2. **被武器化的攻击能力(dual-use)**——`MITRE`(按 ATT&CK 框架测模型配合网络攻击的顺从度)、`MITRE FRR`(误拒率,防止"过度安全"把正常请求也拒了)、`Vulnerability Exploitation`(CTF 夺旗式)、`Spear-Phishing` 说服力、`Autonomous Offensive Cyber Operations`(自主攻击 agent)、`AutoPatch`(自动生成安全补丁)。v4 又加了与 **CrowdStrike** 合作的 **CyberSOCEval**(`Malware Analysis`、`Threat-Intel Reasoning`,选择题式,面向 SOC 防御场景)。
+1. 对模型自己和使用者的风险:`Instruct` / `Autocomplete`(在写指令和自动补全这两种场景下,试着诱导模型写出不安全的代码)、`Code Interpreter` 滥用、`Textual` 和 `Visual Prompt Injection`。这里的 prompt injection 指往输入里塞恶意指令骗 AI 照做,后者是多模态(能同时看图读文)的版本,把恶意指令藏在图片里。
+2. 被当成武器的攻击能力,即所谓 dual-use(同一项能力既能防守也能攻击):`MITRE`(按 ATT&CK 这套攻击手法框架,测模型有多愿意配合网络攻击)、`MITRE FRR`(误拒率,看模型会不会"安全过头",把正常请求也拒了)、`Vulnerability Exploitation`(类似 CTF 夺旗赛,找漏洞拿"旗子")、`Spear-Phishing` 说服力(写钓鱼邮件骗人的能耐)、`Autonomous Offensive Cyber Operations`(能自己分步骤干活的攻击型 agent,即智能体)、`AutoPatch`(自动生成安全补丁)。v4 又加上和 CrowdStrike 合作的 CyberSOCEval,里头有 `Malware Analysis`(恶意软件分析)和 `Threat-Intel Reasoning`(威胁情报推理),都是选择题形式,面向 SOC(企业安全运营中心)的防守场景。
 
-**怎么评分。** 安全编码维度用静态分析器(Insecure Code Detector)自动判;MITRE、注入、钓鱼、恶意软件、情报推理等用 **LLM-judge**;CTF 漏洞利用与 AutoPatch 靠**编译/测试自动打分**。所以同一套基准里混着 automated 与 llm-judge 两种评法。
+怎么打分?各部分用法不一样。安全编码那部分用一个叫 Insecure Code Detector 的静态分析器自动判;MITRE、注入、钓鱼、恶意软件、情报推理这些用 LLM-judge,也就是让另一个 AI 当"阅卷老师"打分;CTF 找漏洞和 AutoPatch 则靠编译和跑测试来自动打分。所以同一套基准里,机器自动判和 AI 阅卷两种评法是混着用的。
 
-**标志性发现与用法。** v1 论文报告了一个反直觉结果:**能力越强的模型,反而越容易给出不安全代码**(摘要原文:"the tendency of more advanced models to suggest insecure code")——提示"会写代码"不等于"会写安全的代码"。v2 进一步量化:所测模型在 prompt injection 上有 26%–41% 的攻击成功率,说明"训练掉攻击风险"仍是未解问题,且过度拒绝(误拒正常请求)会反噬可用性。v3 把整套基准系统地跑在 Llama 3 与同期前沿模型上,并对比加缓解层(如 Llama Guard / Prompt Guard)前后的差异。
+它最出名的一个发现,挺反直觉:能力越强的模型,反而越容易写出不安全的代码(v1 论文摘要原话是 "the tendency of more advanced models to suggest insecure code")。换句话说,"会写代码"不等于"会写安全的代码"。v2 把风险量化得更细:所测模型在 prompt injection 上的攻击成功率有 26% 到 41%,说明"靠训练把攻击风险消掉"至今没解决,而且模型一旦拒绝过头(把正常请求也拒了),反过来又会拖累可用性。v3 把整套基准系统地跑在 Llama 3 和同期的前沿模型上,还对比了加防护层(如 Llama Guard、Prompt Guard)前后的差别。
 
-**三信号分离提醒。** 权威性主要来自 Meta GenAI 安全团队的工程投入 + 多篇论文 + CyberSOCEval 的 CrowdStrike 合作;**人气/citation:仅 v1 已核实 = 154(Semantic Scholar,2026-06-17 取),v2/v3/CyberSOCEval 因 API 限流当次未取到,不臆造**;能力维度上它**不产出名次**,因此 `models_ranked` 留空。要警惕 vendor 自评的循环性:基准与被背书的 Llama 同出一家。
+最后提醒,看这类基准要把三种信号分开。权威性这块,主要来自 Meta GenAI 安全团队的工程投入、多篇论文,加上 CyberSOCEval 和 CrowdStrike 的合作。人气和被引用情况这块,只有 v1 核实到 = 154 次(Semantic Scholar 数据,2026-06-17 取的),v2、v3、CyberSOCEval 当时因为接口限流没取到,这里不瞎编。能力这块,它本就不产出名次,所以 `models_ranked` 留空。还要当心 vendor 自评的循环问题:出基准的和被基准背书的 Llama 是同一家公司。
 
 ## Expert verdict
 

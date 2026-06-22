@@ -52,13 +52,13 @@ moa:
 
 ## Agent summary
 
-MedHELM 是 Stanford 把 **HELM**(Holistic Evaluation of Language Models)扩展到医疗的版本。它跨
-**121 个临床任务**评测模型,组织在一个**经临床医生验证的任务分类**里:5 大类——Clinical Decision
-Support、Patient Communication、Clinical Note Generation、Medical Research Assistance、
-Administration & Workflow——横跨 22 个子类、35 个 benchmark。它于 2025 年初由 Stanford 生物医学
-信息研究中心(BMIR)、Stanford Health Care 与 Microsoft Health & Life Sciences 合作公布,含来自
-**15 个医学专科**的临床医生;2026 年转为独立的社区主导项目。它的标志性选择是*整体、多指标*评测:
-不给一个 leaderboard 数字,而是逐类、逐任务报告,让读者按工作流挑模型。
+HELM 是 Stanford(斯坦福)做的一套统一评测框架,给各家大模型用同一套标准打分。MedHELM(Holistic Evaluation of Language Models)就是把这套框架搬到医疗领域的版本。
+
+它给模型出了 121 个临床任务的"考卷",并按一套经临床医生核对过的分类把这些任务归了类:5 大类(Clinical Decision Support 临床决策支持、Patient Communication 医患沟通、Clinical Note Generation 病历书写、Medical Research Assistance 医学研究辅助、Administration & Workflow 行政与流程),其下又分 22 个子类、35 个 benchmark(基准测试,给 AI 出的标准考卷)。
+
+这套东西在 2025 年初由 Stanford 生物医学信息研究中心(BMIR)、Stanford Health Care 与 Microsoft(微软)Health & Life Sciences 合作公布,参与的临床医生覆盖 15 个医学专科。2026 年起,它转为独立的社区主导项目。
+
+它有一个很特别的做法:不给出一个总排名数字,而是按大类、按任务分别报告每个模型的表现,让读者根据自己实际的工作场景去挑模型。
 
 <!-- 仅事实;来源为 medhelm.org 与 CRFM HELM 文档。 -->
 

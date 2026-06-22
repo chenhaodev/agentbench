@@ -68,17 +68,13 @@ tags: [code, agentic, swe, executable-eval]
 
 ## Agent summary
 
-SWE-bench(Jimenez、Yang 等,Princeton NLP,ICLR 2024 oral)是评测模型/agent **修真实代码**能力事实上的标准榜。
-任务很硬核:给定一个**真实 GitHub issue** 与对应仓库快照,模型要生成一个**补丁(patch)**,然后用该仓库**自带的测试套件**
-判定是否真正修复——通过测试才算 **resolved**。这是端到端、可执行的评测,不是选择题。原始集有 **2294 题、12 个 Python 仓库**。
+SWE-bench 是给 AI 出的一份"修代码"考卷(benchmark,基准测试),由 Princeton NLP 的 Jimenez、Yang 等人做出来,论文入选 ICLR 2024 oral。现在它基本被当成衡量 AI 能不能修真实代码的标准榜。这里的"修代码"对象,既可以是普通模型,也可以是 agent(能自己分步骤、调用工具干活的 AI,也叫智能体)。
 
-后来出现关键子集与变体:**Verified**(OpenAI 与原作者合作,人工校验出的 **500 题**干净子集,剔除了表述不清/不可解/测试 flaky 的任务,
-现已成为发布会标配口径)、**Lite**(300 题轻量集)、以及 **Multimodal / Multilingual** 等。与之配套的 agent 脚手架是同组的 SWE-agent。
+考题本身很实在:先给 AI 一个真实的 GitHub issue(代码仓库里登记的待修 bug 或需求),再配上对应仓库当时的代码快照,要求 AI 生成一个 patch(提交的代码修改)。改完之后,用这个仓库自带的 unit test(自动跑的测试用例,用来判定改对没有)来跑一遍,只有测试通过,这道题才算 resolved(问题被解决)。换句话说,它是从头到尾真跑一遍、看结果的评测,不是做选择题。最早这套题有 2294 道,覆盖 12 个 Python 仓库。
 
-要点(对选型很关键):**数据污染是公开问题**——issue 与 gold patch 在发布前即可能进入训练集,OpenAI 自身审计发现前沿模型能逐字
-复现部分 gold patch,所以高分里可能含记忆成分;社区用 **SWE-bench Live**(滚动加入新 issue)等变体对抗。**且榜在前沿已趋饱和**:
-2026 年中,多家前沿模型(Claude Opus 4.x、Gemini 3.x Pro 等)在 Verified 上 **~80% 统计并列**,作为"谁更强"的区分器价值在下降,
-但作为"能不能真修代码"的**能力门槛**仍然有用。
+后来又分出几个子集和变体。Verified 是 OpenAI 和原作者一起做的人工核验过的子集(SWE-bench Verified),从原始题里挑出 500 道干净题,把那些描述不清、根本没法做、测试时灵时不灵的题剔掉了,现在各家发布会报成绩基本都用它。Lite 是 300 道的轻量版,此外还有 Multimodal、Multilingual 等。配套的 agent 工具叫 SWE-agent,出自同一个团队。
+
+挑模型时有两点要特别留意。第一,数据污染(模型提前见过考题、靠背答案虚高)是公开存在的问题:issue 和标准答案补丁(gold patch)在 SWE-bench 发布前就可能被模型在训练时见过,OpenAI 自己查过,发现前沿模型能一字不差地复现部分标准答案,所以高分里可能掺了"背出来"的成分。为对抗这一点,社区做了 SWE-bench Live 等变体,不断把新出现的 issue 加进来。第二,这份榜在顶尖模型这一段已经快考满了:到 2026 年中,Claude Opus 4.x、Gemini 3.x Pro 等多家前沿模型在 Verified 上的成绩都在 80% 左右、统计上分不出高下,所以它当"谁更强"的尺子越来越不好使了。不过当作一道"能不能真修代码"的及格门槛,它仍然有用。
 
 <!-- 仅事实;来源:ICLR 论文 (arXiv 2310.06770)、官方站 swebench.com、GitHub 仓库、OpenAI 的 Verified 说明。具体并列分数为多家聚合榜口径,标 as_of 2026-06-17。 -->
 

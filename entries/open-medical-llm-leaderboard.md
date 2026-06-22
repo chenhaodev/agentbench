@@ -55,12 +55,9 @@ moa:
 
 ## Agent summary
 
-Open Medical-LLM Leaderboard(Open Life Science AI × Hugging Face,2024)是一个 HuggingFace
-Space,在一套**医疗问答数据集**上给模型排名——MedQA(USMLE 式)、PubMedQA、MedMCQA,以及 MMLU 的
-医疗子集等——按准确率打分,开放社区提交,并可按模型类型、精度、规模筛选。它是筛查**开源**医疗模型
-最便捷的入口。它的局限是结构性的:底层任务多为**选择题知识背诵**(MultiMedQA 家族),前沿模型
-**已大体掌握**,因此该榜正在**饱和**,对真实临床行为、安全或沟通几乎不说明问题。最好把它当作一个
-快速的知识下限,而非部署信号。
+Open Medical-LLM Leaderboard 是一个排行榜,由 Open Life Science AI 和 Hugging Face(一个公开托管 AI 模型的平台)在 2024 年做出来,挂在 HuggingFace Space 上(就是 Hugging Face 上的一个在线小应用页面)。它的做法是拿几套医学考卷来考各家模型,再按答对率排名:这些考卷包括 MedQA(题目仿照美国执业医师资格考试 USMLE)、PubMedQA、MedMCQA,以及 MMLU 里的医学子集。任何人都可以把自己的模型提交上来,页面还能按模型类型、精度、规模来筛选。想给那些权重公开、可以自己部署的(open-weights)医学模型做一次初筛,这是最方便的入口。
+
+它的短板是结构性的。这些考卷大多是选择题(MCQ),考的是知识背诵,属于所谓的 MultiMedQA 这一类。如今顶尖模型基本都答得上来,所以这个榜已经饱和(saturated),也就是高分模型扎堆挤在天花板附近、分不出高下,对模型在真实临床里怎么表现、安不安全、会不会好好沟通,几乎说明不了什么。建议把它当成一个快速判断知识下限的工具,而不是决定要不要部署某个模型的依据。
 
 <!-- 仅事实;来源为 HF 博客与 Space。 -->
 

@@ -57,16 +57,9 @@ moa:
 
 ## Agent summary
 
-MEDIQA-Chat 2023 是在 ClinicalNLP Workshop @ ACL 2023 举办的一个 **shared task**(由 Asma Ben
-Abacha 等人组织,Microsoft/Nuance),主题是**医患对话的摘要与生成**。它有三个任务:**Task A**——
-句段级 *Dialogue2Note* 摘要加章节标题分类,使用 **MTS-Dialog** 数据集(约 1.7k 短对话带摘要;
-1,201 训练 / 100 验证);**Task B**——整篇临床病历摘要,使用 **ACI-Bench** 环境临床智能数据集;
-**Task C**——*Note2Dialogue* 合成对话生成,用于数据增强。**17 支队伍**参赛。系统由 **ROUGE、
-BERTScore、BLEURT 的集成**打分,并用 Pearson 相关把这些自动指标与人工判断校验对齐。
+MEDIQA-Chat 2023 是一场公开评测竞赛(shared task),2023 年在 ACL 会议下属的 ClinicalNLP Workshop 上举办,由 Asma Ben Abacha 等人组织(来自 Microsoft / Nuance),主题是给医患对话做摘要和生成。它分三个任务。Task A 是把对话里的一段段内容压成就诊记录的对应片段(Dialogue2Note),再给片段标上章节标题,用的是 MTS-Dialog 数据集(约 1.7k 段短对话配好摘要,其中 1,201 条用于训练、100 条用于验证)。Task B 是把整段对话写成一份完整的临床病历(clinical note,即就诊记录),用的是 ACI-Bench 数据集。Task C 反过来,根据病历自动生成对话(Note2Dialogue),用来扩充训练数据。一共 17 支队伍参赛。打分用的是三种自动指标的组合:ROUGE、BERTScore、BLEURT——它们都是按机器输出和参考答案的重合程度自动算分;组织方还用 Pearson 相关系数检验这些自动分和人工打分是否一致。
 
-它针对**环境式 scribe** 用例(把就诊对话转成结构化病历)——一个生成任务,补充本集合里别处的 QA 背诵
-榜与行为榜。它的局限:这是一次性的 2023 挑战赛、基线属前-前沿-LLM 时代,且基于重叠的指标对临床事实性
-反映不足。
+它瞄准的是"环境式记录助手"(ambient scribe)这类用法,也就是医生看诊时,系统在旁边把对话直接转成结构化的就诊记录。这是一个生成类任务,正好补上本集合里其它几份偏选择题背诵或行为测试的榜单。它也有几个短板:这是一次性的 2023 年比赛,当时的基线模型还在顶级大模型出现之前;而且按重合度算分的指标,对病历是否在临床上写对了事实,反映得并不够。
 
 <!-- 仅事实;来源为 ACL Anthology 概述、组织者 GitHub 与 ACI-Bench 论文。 -->
 

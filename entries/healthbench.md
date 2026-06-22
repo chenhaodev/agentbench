@@ -63,26 +63,11 @@ moa:
 
 ## Agent summary
 
-HealthBench 是 OpenAI 的健康-AI 评测(arXiv 2505.08775,2025 年 5 月),由 **262 位来自约
-60 个国家的医生**共建。它是模型与用户或临床医生之间的 **5,000 段多轮对话**;每段对话都附带
-一份**医生编写、对话专属的评分量规**(合计 48,562 条加权标准)。一个基于模型的评分器
-(GPT-4.1)按量规给每个回答打分;OpenAI 报告该评分器与医生的一致性为 **macro-F1 0.71**,约
-等于医生间一致性。变体包括 **HealthBench Hard**(更难子集)与 **HealthBench Consensus**。与
-选择题式医疗-QA 榜不同,它针对*行为*——完整性、沟通、留有余地,以及何时该追问上下文或升级转诊。
-它以开放 eval set 形式分发,而非实时、可提交的在线 leaderboard。一篇独立 PMC 评述提醒它"推进
-了医疗 AI 评测,但[仍]尚未达到临床应用标准"。
+HealthBench 是 OpenAI(一家做大模型的公司)推出的一套健康类 AI 测验(arXiv 编号 2505.08775,2025 年 5 月发布),由 262 位来自约 60 个国家的医生一起编写。它的题目不是选择题,而是 5,000 段模型与用户或临床医生之间的多轮对话(一来一回、能接着往下聊的完整对话)。每段对话都配一份医生事先写好的评分细则(rubric),只针对这段对话,合起来共 48,562 条加权标准。打分的不是人,而是另一个 AI 当“阅卷老师”(让另一个大模型按细则给回答打分,叫 LLM 评判),这里用的是 GPT-4.1。OpenAI 说这个 AI 阅卷员和医生打分的吻合程度是 macro-F1 0.71(一个 0 到 1 之间的一致性指标,越高越接近),差不多等于医生彼此之间的一致程度。它还有两个变体:HealthBench Hard 是更难的一小部分题,HealthBench Consensus 则是另一个子集。和那种考选择题(MCQ)、比谁背得准的医疗问答榜不同,HealthBench 考的是 AI 的“行为”:回答全不全、会不会好好沟通、懂不懂在没把握时留有余地(hedge),以及该不该先追问情况、该不该建议转诊。它是以一份公开的测验题集发布的,不是那种能随时提交成绩、实时刷新排名的在线榜(benchmark,即给 AI 出的标准考卷)。有一篇独立的 PMC 评述提醒:它“推进了医疗 AI 评测,但[仍]尚未达到临床应用标准”。
 
-**社交热度(sentiment,不是 authority):** 在所调研的医疗榜中,HealthBench 的英文社交存在感
-最高——被 @EricTopol 等独立人物讨论,并在前沿模型发布公告中被当作*那个*参考指标(如 Opus 4.8
-的 system card 报告 HealthBench Professional)。注意其循环性:OpenAI 既是作者,各实验室又在营销
-中引用它,所以这里的关注度部分是厂商驱动的。Reddit 上几乎没有讨论。permalink 见
-`popularity.social`(2026-06-16 采集)。
+社交热度(只代表风声和情绪,不代表权威):在我们调研过的医疗榜里,HealthBench 在英文社交平台上被提及得最多。独立人士比如 @EricTopol 在讨论它,前沿模型发布公告也把它当成“那个”要看的参考指标(例如 Opus 4.8 的 system card 就报了 HealthBench Professional 的成绩)。但要留意一个绕圈子的问题:OpenAI 自己是出题方,各家实验室又在自家宣传里引用它,所以这份关注度有一部分是厂商自己带起来的。Reddit 上几乎没人聊。具体的帖子链接见 `popularity.social`(2026-06-16 采集)。
 
-**独立采用(authority,不是 sentiment):** 一篇 *Nature Medicine* 研究(s41591-026-04431-5,
-2026 年 6 月 12 日)把 **500 道 HealthBench 题目**用作三个评测阶段之一——与 MedQA 和新的
-Real-Clinical-Queries(RCQ)基准并列——证明前沿 LLM(GPT-5.2、Gemini 3.1 Pro、Claude Opus
-4.6)胜过专用临床工具(OpenEvidence 62.6、UpToDate 61.3)。这是对 HealthBench 的同行评议第三方
-使用,区别于上面的厂商热度。
+独立采用(这才算权威,不是风声):一篇《Nature Medicine》的研究(编号 s41591-026-04431-5,2026 年 6 月 12 日)把 500 道 HealthBench 题目当作三个评测环节之一,和 MedQA、以及新的 Real-Clinical-Queries(RCQ)基准并列使用。研究显示,前沿的通用大模型(GPT-5.2、Gemini 3.1 Pro、Claude Opus 4.6)胜过了专门给临床用的工具(OpenEvidence 得 62.6,UpToDate 得 61.3)。这是经过同行评议的第三方在用它,和上面那种厂商自己带的热度是两码事。
 
 <!-- 仅事实;来源为所引 arXiv/OpenAI/PMC 页面 + 登录浏览 X/Reddit。 -->
 

@@ -81,7 +81,7 @@ def page(title, body, depth_to_root="."):
 <title>{html.escape(title)}</title>
 <link rel="stylesheet" href="{depth_to_root}/style.css"></head>
 <body><a id="top"></a><main>{body}</main>
-<footer>AgentBench · 主观榜单评议 — 客观聚合器回答"谁在榜上",这里回答"该不该信这个榜"。</footer>
+<footer>AgentBench · 主观榜单评议。别的榜告诉你"谁排第几",这里告诉你"这个榜该不该信"。</footer>
 </body></html>"""
 
 
@@ -160,7 +160,7 @@ def render_entry(e, body_md):
   <section class="sig-cap"><h3>③ 能力 Capability<br><span class="muted">榜内排名</span></h3>{cap_html}</section>
 </div>
 
-<section class="moa"><h2>MoA 选型输入</h2>
+<section class="moa"><h2>拿它挑模型用(MoA 选型输入)<br><span class="muted">如果你要把几个模型搭成团队,这里是从这个榜能取到的参考</span></h2>
   <p><b>能力轴</b> {chips(moa.get("capability_axes",[]))}</p>
   <p><b>模态</b> {chips(moa.get("modalities",[]),"chip mod")} &nbsp; <b>部署</b> {chips(moa.get("access",[]),"chip acc")}</p>
   <h4>适合 recommended for</h4>{lst(moa.get("recommended_for",[]))}
@@ -171,34 +171,64 @@ def render_entry(e, body_md):
     return page(fm.get("name", "entry") + " · AgentBench", body)
 
 
+GENRE_ZH = {
+    "online-leaderboard": "在线排行榜",
+    "shared-task": "公开评测任务",
+    "paper-bound": "随论文发布",
+    "aggregator": "榜中榜(聚合器)",
+    "dataset": "数据集",
+}
+
+
 def render_index(entries):
     rows = []
     for fm, _ in entries:
         ev = fm.get("expert_verdict") or {}
-        dom = "medical" if "medical" in (fm.get("domain") or []) else "non-medical"
+        med_row = "medical" in (fm.get("domain") or [])
+        dom = "medical" if med_row else "non-medical"
+        dom_label = "医疗" if med_row else "非医疗"
+        genre = fm.get("genre", "")
         one = (ev.get("one_liner") or "").strip()
         rows.append(
-            f'<tr data-domain="{dom}" data-genre="{html.escape(fm.get("genre",""))}"'
+            f'<tr data-domain="{dom}" data-genre="{html.escape(genre)}"'
             f' data-conf="{html.escape((ev.get("confidence") or ""))}" data-year="{html.escape(str(fm.get("year","") or ""))}"'
             f' data-name="{html.escape((fm.get("name","") or "").lower())}">'
             f'<td><a href="./{html.escape(fm["id"])}.html">{html.escape(fm.get("name",""))}</a> <span class="muted">{html.escape(str(fm.get("year","") or ""))}</span></td>'
-            f'<td>{chips([fm.get("genre","")],"chip genre")}</td>'
-            f'<td>{dom}</td>'
+            f'<td><span class="chip genre">{html.escape(GENRE_ZH.get(genre, genre))}</span></td>'
+            f'<td>{dom_label}</td>'
             f'<td>{chips((fm.get("moa") or {}).get("modalities",[]),"chip mod")}</td>'
             f'<td>{conf_badge(ev.get("confidence"))}</td>'
             f'<td class="muted">{html.escape(one)}</td></tr>')
     med = sum(1 for fm, _ in entries if "medical" in (fm.get("domain") or []))
     body = f"""
 <h1>AgentBench · 主观榜单评议</h1>
-<p class="lede">给现有 AI 榜单写<strong>专家判语</strong>:这个榜可不可信、高分到底买到了什么、要不要据此在
-MoA 里选模型。客观聚合器回答<em>"谁在榜上"</em>,这里回答<em>"该不该信这个榜"</em>。</p>
-<p class="muted">已签发 {len(entries)} 条 · 医疗 {med} / 非医疗 {len(entries)-med} · 仅显示专家已签字条目。</p>
+<p class="lede">市面上有一堆"AI 排行榜"在比谁的模型更强。这个站做的是另一件事:请一位专家逐个点评<strong>这些榜本身值不值得信</strong>,以及看榜时最容易踩的坑。</p>
+
+<details class="explainer" open>
+  <summary>一分钟看懂(不需要 AI 背景)</summary>
+  <p>AI 排行榜(leaderboard)有点像手机跑分:让很多 AI 模型做同一套题,按得分排名次。
+  麻烦在于,分高不等于真好用——题目可能早被模型"背"过,有的榜还是某家公司自己办、给自家产品打广告。</p>
+  <p>所以这里不排"谁第几名",而是请专家回答三件事:这个榜<b>可不可信</b>、高分到底<b>换来了什么真本事</b>、
+  要不要照着它<b>挑模型用</b>。每条都标了专家的<b>信心</b>(高 / 中 / 低),你可以只信你愿意信的那部分。</p>
+</details>
+
+<details class="explainer">
+  <summary>先认识几个词</summary>
+  <ul class="glossary">
+    <li><b>榜单 / leaderboard</b>:给 AI 模型打分排名的网页或论文。</li>
+    <li><b>判语</b>:专家看完一个榜后写下的主观结论。它是本站的核心,由真人署名,不是 AI 代写。</li>
+    <li><b>聚合器 / aggregator</b>:把很多榜的结果汇到一起的"榜中榜"。它告诉你谁在榜上,但不替你判断该不该信。</li>
+    <li><b>MoA</b>:把好几个 AI 模型像团队一样搭着用,各管自己擅长的一块。要决定让谁进这个团队,就用得上这些榜做参考。</li>
+  </ul>
+</details>
+
+<p class="muted">已收录 {len(entries)} 条 · 医疗 {med} / 非医疗 {len(entries)-med} · 只显示专家已署名的条目。</p>
 
 <div class="filters">
-  <label>领域 <select id="f-domain"><option value="">全部</option><option>medical</option><option>non-medical</option></select></label>
-  <label>体裁 <select id="f-genre"><option value="">全部</option>
-    <option>online-leaderboard</option><option>shared-task</option><option>paper-bound</option>
-    <option>aggregator</option><option>dataset</option></select></label>
+  <label>领域 <select id="f-domain"><option value="">全部</option><option value="medical">医疗</option><option value="non-medical">非医疗</option></select></label>
+  <label>类型 <select id="f-genre"><option value="">全部</option>
+    <option value="online-leaderboard">在线排行榜</option><option value="shared-task">公开评测任务</option><option value="paper-bound">随论文发布</option>
+    <option value="aggregator">榜中榜(聚合器)</option><option value="dataset">数据集</option></select></label>
   <label>排序 <select id="f-sort">
     <option value="default">默认(名称)</option>
     <option value="conf">专家信心 高→低</option>
@@ -207,7 +237,7 @@ MoA 里选模型。客观聚合器回答<em>"谁在榜上"</em>,这里回答<em>
   <input id="f-text" placeholder="搜索名称…">
 </div>
 
-<table id="grid"><thead><tr><th>榜单</th><th>体裁</th><th>领域</th><th>模态</th><th>专家信心</th><th>一句话判语</th></tr></thead>
+<table id="grid"><thead><tr><th>榜单</th><th>类型</th><th>领域</th><th>能处理什么</th><th>专家信心</th><th>一句话判语</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table>
 
 <script>
@@ -240,6 +270,11 @@ main{max-width:920px;margin:0 auto;padding:28px 20px 60px}
 footer{max-width:920px;margin:0 auto;padding:20px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 h1{font-size:1.9rem;margin:.2em 0}.lede{font-size:1.15rem}
+.explainer{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 16px;margin:12px 0}
+.explainer[open]{padding-bottom:12px}
+.explainer summary{cursor:pointer;font-weight:600;padding:8px 0}
+.explainer p{margin:.5em 0}
+.glossary{padding-left:18px;margin:.4em 0}.glossary li{margin:.35em 0}
 .muted{color:var(--muted);font-size:.9em}.warn{color:var(--pop);font-weight:600}
 .badges{margin:.2em 0}.tag{font-size:.7rem;background:#eef;color:#446;padding:2px 7px;border-radius:10px;vertical-align:middle}
 .chip{display:inline-block;background:#eee;border-radius:11px;padding:1px 9px;margin:2px;font-size:.8rem}
